@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "issueai"
+version = "0.1.0"
+description = "Hypothesis-driven issue and bug discovery for real codebases."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "hi-mundo" }
+]
+license = { text = "MIT" }
+dependencies = []
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["issueai*"]

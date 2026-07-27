@@ -1,0 +1,33 @@
+"""Core product model for IssueAI."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+
+@dataclass(frozen=True)
+class IssueAIModel:
+    """High-level description of the IssueAI product boundary."""
+
+    name: str = "IssueAI"
+    mode: str = "hypothesis-driven issue discovery"
+    strengths: tuple[str, ...] = (
+        "repository understanding",
+        "product understanding",
+        "historical issue retrieval",
+        "structured hypothesis planning",
+        "high-recall issue discovery",
+    )
+    current_limitations: tuple[str, ...] = (
+        "ranking noise between correlated mechanisms",
+        "top-3 precision still behind top-100 recall",
+        "validation probes still need broader productization",
+    )
+    adapters: tuple[str, ...] = ("codex", "claude")
+    benchmark_summary: dict[str, str] = field(
+        default_factory=lambda: {
+            "date": "2026-07-27",
+            "top100_recall": "20/20",
+            "note": "Expected mechanisms landed inside the top 100 for all benchmarked cases.",
+        }
+    )
