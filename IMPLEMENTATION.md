@@ -1,4 +1,4 @@
-# How to implement IssueAI
+# IssueAI implementation
 
 ## Product posture
 
@@ -45,61 +45,81 @@ Current high-level layout:
 
 ```text
 IssueAI/
+  .codex-plugin/
+  .claude-plugin/
+  .cursor-plugin/
   issueai/
     core/
+    adapters/
     hosts/
     providers/
-    adapters/
+    bug_hunt_runtime/
   evals/
   benchmarks/
   tests/
 ```
 
-## What the core should do
+## What each area is for
 
-The core should stay responsible for:
+### Plugin manifests
+
+- `.codex-plugin/`
+- `.claude-plugin/`
+- `.cursor-plugin/`
+
+These are the host-facing plugin entry points.
+
+### Core package
+
+- `issueai/core/`
+
+This should hold the reusable logic for:
 
 - repository understanding
 - retrieval and pattern narrowing
 - planning
 - benchmark-facing orchestration
 
-Host-specific layers should stay thin and mainly handle:
+### Host and adapter layers
 
-- tool wiring
+- `issueai/adapters/`
+- `issueai/hosts/`
+- `issueai/providers/`
+
+These should stay thin and mainly handle:
+
+- host-specific wiring
 - artifact locations
 - provider/model invocation
-- host-specific UX and installation expectations
+- host-specific UX expectations
 
-## Multi-host packaging direction
+### Vendored runtime
 
-The repository already carries parallel manifests for:
+- `issueai/bug_hunt_runtime/`
 
-- [/.codex-plugin/plugin.json](./.codex-plugin/plugin.json)
-- [/.claude-plugin/plugin.json](./.claude-plugin/plugin.json)
-- [/.cursor-plugin/plugin.json](./.cursor-plugin/plugin.json)
+This is the current deterministic workflow/runtime layer that preserves the
+validated bug-hunt method and benchmark harness.
 
-That follows the pattern used by public multi-host agent tool projects:
+### Benchmark surfaces
 
-- one core
-- mirrored host manifests
-- thin distribution-specific wrappers
+- `evals/`
+- `benchmarks/`
 
-## Benchmark posture
+These store:
 
-IssueAI benchmark expansion is intentionally staged.
+- benchmark datasets
+- benchmark runners
+- promptfoo integration
+- result summaries
 
-Current phase:
+## Multi-host pattern
 
-- grow the historical real-issue benchmark in independent batches
-- keep evaluation blind and structurally comparable
+The repository follows a public multi-host plugin pattern:
 
-Deferred phase:
-
-- compare IssueAI against strong-prompt baseline runs from other agent hosts
-
-That comparison matters, but only after the tool is more optimized as a usable
-and installable marketplace product.
+- one core product
+- mirrored manifests per host
+- thin host-specific wrappers
+- documentation separated by presentation, usage, and implementation
 
 ## What to optimize next
 
@@ -109,7 +129,7 @@ and installable marketplace product.
 - finalize marketplace-grade packaging for Claude
 - finalize marketplace-grade packaging for Cursor
 - add Copilot-specific packaging later
-- add screenshots and richer plugin card assets
+- add richer plugin card assets and screenshots
 
 ### Core method
 
@@ -119,12 +139,13 @@ and installable marketplace product.
 
 ### Benchmark program
 
-- populate `historical-route-20-v2`
-- add more independent batches after v2
-- preserve external ground truth and blind runtime inputs
+- expand historical batches
+- preserve blind evaluation and external ground truth
+- defer strong-prompt cross-host comparisons until the tool is more mature
 
-## Supporting docs
+## Related docs
 
-- [README.md](./README.md): top-level product page
+- [README.md](./README.md): product overview
+- [USAGE.md](./USAGE.md): installation and usage modes
 - [PAPER.md](./PAPER.md): method and benchmark framing
 - [TODO.md](./TODO.md): roadmap

@@ -24,47 +24,96 @@
   <code>benchmark-driven</code>
 </p>
 
+IssueAI helps AI coding agents find real bugs that usually survive normal code
+review, generic static analysis, and shallow “review this repo” prompts.
+
 ## What is this?
 
-IssueAI is a bug-hunting engine for the class of defects that usually escape
-obvious checks:
+IssueAI is a plugin for AI coding agents that helps them find real bugs in a
+repository instead of stopping at superficial code review comments.
+
+It is built for the class of defects that usually escape obvious checks:
 
 - subtle bugs in mature repositories
 - reliability failures that appear only under specific paths
 - implementation-intent drift that increases bug probability over time
 - issues that survive many releases before maintainers finally notice them
 
+In plain terms: IssueAI tries to make Codex or Claude review code more like an
+investigator and less like a linter.
+
+It first tries to understand what the product is, how the repository is
+organized, what the code seems intended to do, and which bug families are more
+likely in that context. Then it generates bug hypotheses that can later be
+tested or validated.
+
 It is not a generic static analyzer and not a plain “review this repo” prompt.
 
-Its goal is to recover the real issue hypotheses that matter before the system
-is told the answer.
+## Why would someone use this?
 
-## How to use
+Because normal AI code review often misses the bugs that matter most:
 
-Current usage posture:
+- bugs hidden behind valid-looking code
+- failures that only appear in edge paths or weird state combinations
+- logic that is locally reasonable but globally wrong for the product
+- implementation drift that makes a codebase fragile even before an obvious bug appears
 
-- primary: run through an agent host such as Codex, Claude, or Cursor
-- secondary: run locally for compatibility, evals, and experimentation
+IssueAI is for people who want the agent to ask:
 
-Current local CLI surfaces:
+- “what is this supposed to do?”
+- “what would break in a real product path?”
+- “where is the implementation weaker than the intent?”
+- “which bug patterns are historically common for this kind of repository?”
 
-```bash
-python3 -m issueai.cli --repository example/repo --signal async --signal timeout
-python3 -m issueai.cli historical-case --case-id <case-id> ...
+## What does it actually output?
+
+IssueAI does not try to pretend it already proved the bug.
+
+Its job is to produce strong, contextual bug hypotheses such as:
+
+- likely failure points
+- suspicious contracts and state transitions
+- implementation-intent mismatches
+- reliability risks worth validating next
+
+So the value is not just “review text”. The value is a better search space for
+real bug discovery.
+
+## Quick install
+
+Paste one of these prompts into your editor agent to install IssueAI from this repository.
+
+Codex:
+
+```text
+Install the plugin from https://github.com/hi-mundo/IssueAI and enable it for this workspace.
 ```
 
-## How to install
+Claude:
 
-IssueAI is moving toward host-first packaging.
+```text
+Install the plugin from https://github.com/hi-mundo/IssueAI and enable it for this project.
+```
 
-Current repository manifests:
+## Compatibility
 
-- Codex: [/.codex-plugin/plugin.json](./.codex-plugin/plugin.json)
-- Claude: [/.claude-plugin/plugin.json](./.claude-plugin/plugin.json)
-- Cursor: [/.cursor-plugin/plugin.json](./.cursor-plugin/plugin.json)
+IssueAI is designed as a host-first plugin for AI coding agents, especially:
 
-This means the repository is already shaped for multi-host plugin packaging, but
-the marketplace/distribution flow is still being polished.
+- Codex
+- Claude
+
+It also keeps compatibility for teams that want to use it outside plugin installation:
+
+- BYOK usage for local experimentation and testing
+- CLI usage for evals, benchmarks, and manual runs
+
+So the intended order is:
+
+1. easiest path: install it into your coding agent
+2. fallback path: run it locally with your own keys or local runtime
+3. benchmark path: use the CLI surfaces for historical-case and eval workflows
+
+For exact usage modes and examples, see [USAGE.md](./USAGE.md).
 
 ## What problem does it solve?
 
@@ -95,10 +144,21 @@ Expanded internal benchmark snapshot on the same date:
 That is a strong viability signal, not a claim that the product is already
 finished.
 
+## Repository map
+
+- [README.md](./README.md): product overview and quick install
+- [USAGE.md](./USAGE.md): Codex, Claude, BYOK, and CLI usage modes
+- [IMPLEMENTATION.md](./IMPLEMENTATION.md): plugin pattern, architecture, runtime, and repo structure
+- [PAPER.md](./PAPER.md): method and benchmark framing
+- [TODO.md](./TODO.md): roadmap and open work
+- [evals/README.md](./evals/README.md): benchmark runtime details
+- [benchmarks/README.md](./benchmarks/README.md): dated benchmark result summaries
+
 ## Documentation
 
-- [HOW-TO-IMPLEMENT.md](./HOW-TO-IMPLEMENT.md): architecture, host posture, implementation direction, and packaging notes
-- [PAPER.md](./PAPER.md): method, thesis, and benchmark framing
+- [USAGE.md](./USAGE.md): installation and usage
+- [IMPLEMENTATION.md](./IMPLEMENTATION.md): implementation and repository structure
+- [PAPER.md](./PAPER.md): method and benchmark framing
 - [TODO.md](./TODO.md): roadmap and open work
 - [evals/README.md](./evals/README.md): benchmark runtime details
 - [benchmarks/README.md](./benchmarks/README.md): dated benchmark result summaries
