@@ -1,6 +1,6 @@
 <p align="center">
   <span style="display:inline-block; padding:16px; background:#ffffff; border-radius:20px;">
-    <img src="./assets/logo.svg" alt="IssueAI logo" width="160" />
+    <img src="./assets/logo.png" alt="IssueAI logo" width="160" />
   </span>
 </p>
 

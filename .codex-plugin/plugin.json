@@ -33,7 +33,7 @@
       "Model intended behavior and validate contextual issue hypotheses for this codebase."
     ],
     "brandColor": "#ff5a3d",
-    "composerIcon": "./assets/logo.svg",
-    "logo": "./assets/logo.svg"
+    "composerIcon": "./assets/plugin-logo.svg",
+    "logo": "./assets/plugin-logo.svg"
   }
 }
