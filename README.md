@@ -12,7 +12,7 @@ The core idea is simple:
 4. keep the workflow deterministic enough that the same repository context produces comparable results;
 5. optimize for catching the real issue even when the exact ranking is still imperfect.
 
-The current implementation was born as a Codex plugin, but the architecture already points to a standalone BYOK project with canonical adapters for Codex and Claude.
+The current implementation was born as a Codex plugin, but the architecture already points to a standalone core that can be imported by agent hosts such as Codex, Claude, Cursor, and similar environments.
 
 ## What IssueAI does
 
@@ -236,20 +236,45 @@ The long-term shape is:
 - BYOK model/provider support;
 - canonical host adapters.
 
+## Host-first, BYOK-second
+
+IssueAI should primarily be consumed by an agent host:
+
+- Codex
+- Claude
+- Cursor
+- similar agent-capable developer environments
+
+That means the first-class integration shape is:
+
+- the host imports IssueAI as a plugin, package, or adapter;
+- the host handles most user interaction and tool orchestration;
+- IssueAI contributes structured understanding, retrieval, planning, and validation workflows.
+
+Manual execution still matters, but mainly for:
+
+- compatibility;
+- testing;
+- local benchmarking;
+- harnesses;
+- automation outside a host environment.
+
 ## BYOK direction
 
-IssueAI should become a standalone Python project where users can bring their own model provider.
+IssueAI should still support a standalone Python execution mode where users can bring their own model/provider path when needed.
 
-Possible provider examples:
+Possible provider/runtime examples:
 
-- OpenAI / Codex-family models;
-- Anthropic / Claude-family models;
-- other future providers through a narrow adapter contract.
+- Codex SDK
+- Claude SDK
+- direct API-key based providers when necessary
+- other future providers through a narrow adapter contract
 
 The important point is:
 
 - the bug-hunting method is the product;
-- the host/editor/plugin integration is an adapter layer.
+- the host/editor/plugin integration is an adapter layer;
+- direct terminal execution is a compatibility mode, not the main product posture.
 
 ## Canonical adapters
 
@@ -283,6 +308,8 @@ IssueAI/
   README.md
   issueai/
     core/
+    hosts/
+    providers/
     corpus/
     retrieval/
     planning/
