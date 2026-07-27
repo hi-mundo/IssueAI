@@ -12,7 +12,7 @@
 
 <p align="center">
   <img alt="status" src="https://img.shields.io/badge/status-viable%20prototype-ff5a3d">
-  <img alt="benchmark" src="https://img.shields.io/badge/historical%20benchmark-20%2F20%20top--100-success">
+  <img alt="benchmark" src="https://img.shields.io/badge/validated%20benchmark-20%2F20%20top--100-success">
   <img alt="hosts" src="https://img.shields.io/badge/hosts-Codex%20%7C%20Claude%20%7C%20Cursor-4f46e5">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-111827">
 </p>
@@ -82,9 +82,15 @@ IssueAI tries to reduce that gap by:
 
 As of **July 27, 2026**:
 
-- historical benchmark set: 20 real issue cases from mature public repositories
-- primary metric: expected real mechanisms inside the top 100 ranked hypotheses
-- measured result: **20/20 cases passed**
+- official validated benchmark set: 20 real issue cases from mature public repositories
+- primary metric: all expected real mechanisms inside the top 100 ranked hypotheses
+- validated result: **20/20 cases passed**
+
+Expanded internal benchmark snapshot on the same date:
+
+- combined benchmark set: **40/40** cases passed `top100_all`
+- composition: 20 validated cases + 20 `proposed-from-artifacts` cases
+- progress telemetry: 38/40 cases had all expected mechanisms inside the top 10, and 40/40 inside the top 20
 
 That is a strong viability signal, not a claim that the product is already
 finished.
@@ -95,6 +101,7 @@ finished.
 - [PAPER.md](./PAPER.md): method, thesis, and benchmark framing
 - [TODO.md](./TODO.md): roadmap and open work
 - [evals/README.md](./evals/README.md): benchmark runtime details
+- [benchmarks/README.md](./benchmarks/README.md): dated benchmark result summaries
 
 ## License
 

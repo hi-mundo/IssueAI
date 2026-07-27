@@ -41,6 +41,15 @@ batches, not by changing the benchmark philosophy.
 ## Reserved next batch
 
 - `historical-route-20-v2`
-  - manifest placeholder: `historical-route-20-v2/manifest.template.json`
+  - manifest: `historical-route-20-v2/manifest.json`
+  - proposed ground truth: `historical-route-20-v2/ground-truth.proposed.json`
   - purpose: next independent 20-case historical route recovery set
-  - status: planned, not populated, not validated
+  - status: proposed from artifacts, not manually gold-validated yet
+
+## Current measured expansion snapshot
+
+As of July 27, 2026:
+
+- `historical-route-20-v1` remains the official validated batch with 20/20 top-100 recovery
+- `historical-route-20-v1` + `historical-route-20-v2` together reached 40/40 top-100 recovery in the current internal run
+- the second statement is useful benchmark evidence, but not a replacement for manual gold validation of `historical-route-20-v2`

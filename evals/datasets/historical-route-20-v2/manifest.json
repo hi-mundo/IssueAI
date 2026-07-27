@@ -1,0 +1,85 @@
+{
+  "warning": "This dataset was reconstructed from prepared artifacts and is not yet manually gold-validated.",
+  "cases": [
+    {
+      "id": "aiohttp-3296",
+      "repository": "aio-libs/aiohttp"
+    },
+    {
+      "id": "black-1102",
+      "repository": "psf/black"
+    },
+    {
+      "id": "click-2832",
+      "repository": "pallets/click"
+    },
+    {
+      "id": "compose-13474",
+      "repository": "docker/compose"
+    },
+    {
+      "id": "cp-57281",
+      "repository": "python/cpython"
+    },
+    {
+      "id": "go-49075",
+      "repository": "golang/go"
+    },
+    {
+      "id": "itsdangerous-102",
+      "repository": "pallets/itsdangerous"
+    },
+    {
+      "id": "mypy-20353",
+      "repository": "python/mypy"
+    },
+    {
+      "id": "node-50269",
+      "repository": "nodejs/node"
+    },
+    {
+      "id": "numpy-29391",
+      "repository": "numpy/numpy"
+    },
+    {
+      "id": "packaging-681",
+      "repository": "pypa/packaging"
+    },
+    {
+      "id": "pandas-57702",
+      "repository": "pandas-dev/pandas"
+    },
+    {
+      "id": "pluggy-219",
+      "repository": "pytest-dev/pluggy"
+    },
+    {
+      "id": "prometheus-15186",
+      "repository": "prometheus/prometheus"
+    },
+    {
+      "id": "pytest-6194",
+      "repository": "pytest-dev/pytest"
+    },
+    {
+      "id": "redis-15389",
+      "repository": "redis/redis"
+    },
+    {
+      "id": "requests-6730",
+      "repository": "psf/requests"
+    },
+    {
+      "id": "rust-76980",
+      "repository": "rust-lang/rust"
+    },
+    {
+      "id": "sqlalchemy-13059",
+      "repository": "sqlalchemy/sqlalchemy"
+    },
+    {
+      "id": "urllib3-2999",
+      "repository": "urllib3/urllib3"
+    }
+  ]
+}

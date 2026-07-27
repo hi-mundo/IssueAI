@@ -17,13 +17,15 @@ class IssueAIEvalsLayoutTest(unittest.TestCase):
         self.assertIn("historical-route-20-v1", datasets)
         self.assertEqual(datasets["historical-route-20-v1"]["case_count"], 20)
         self.assertIn("historical-route-20-v2", datasets)
-        self.assertEqual(datasets["historical-route-20-v2"]["status"], "planned")
+        self.assertEqual(datasets["historical-route-20-v2"]["status"], "proposed-from-artifacts")
+        self.assertEqual(datasets["historical-route-20-v2"]["case_count"], 20)
 
     def test_reserved_batch_two_structure_exists(self) -> None:
         batch_root = ROOT / "evals" / "datasets" / "historical-route-20-v2"
         self.assertTrue((batch_root / "README.md").exists())
         self.assertTrue((batch_root / "NOTES.md").exists())
-        self.assertTrue((batch_root / "manifest.template.json").exists())
+        self.assertTrue((batch_root / "manifest.json").exists())
+        self.assertTrue((batch_root / "ground-truth.proposed.json").exists())
 
     def test_promptfoo_harness_exists(self) -> None:
         self.assertTrue((ROOT / "evals" / "promptfoo" / "promptfooconfig.yaml").exists())

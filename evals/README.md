@@ -24,6 +24,28 @@ The next reserved batch structure already exists in:
 
 - [datasets/historical-route-20-v2/README.md](./datasets/historical-route-20-v2/README.md)
 
+That batch is now serialized in benchmark shape, but its route labels are still
+marked as proposed-from-artifacts rather than manually gold-validated.
+
+## Observed results on July 27, 2026
+
+Two benchmark views are important and should not be mixed:
+
+- primary success metric: `top100_all`
+- progress telemetry: position distribution such as top-10 or top-20
+
+Observed results:
+
+- validated batch `historical-route-20-v1`: **20/20** cases passed `top100_all`
+- expanded run `historical-route-20-v1` + `historical-route-20-v2`: **40/40** cases passed `top100_all`
+- expanded distribution: 38/40 cases had all expected mechanisms inside the top 10, and 40/40 inside the top 20
+
+Important nuance:
+
+- `historical-route-20-v2` is useful as an additive benchmark batch
+- it is still labeled `proposed-from-artifacts`
+- it should not be described as manually gold-validated until that review is finished
+
 ## Runtimes
 
 There are two benchmark entrypoints:

@@ -17,15 +17,15 @@
     },
     {
       "id": "historical-route-20-v2",
-      "manifest": "evals/datasets/historical-route-20-v2/manifest.template.json",
+      "manifest": "evals/datasets/historical-route-20-v2/manifest.json",
       "kind": "historical-route-recovery",
-      "case_count": 0,
-      "status": "planned",
+      "case_count": 20,
+      "status": "proposed-from-artifacts",
       "validated_on": null,
       "notes": [
-        "Reserved structure for the next independent 20-case batch",
-        "Not populated yet",
-        "Not validated yet"
+        "Second independent 20-case batch",
+        "Manifest and proposed ground truth were reconstructed from prepared local artifacts",
+        "expected_route values are not yet manually gold-validated against issue texts"
       ]
     }
   ]

@@ -12,6 +12,10 @@ Current validated benchmark artifact:
 
 - [results-2026-07-27.md](./results-2026-07-27.md)
 
+Current expanded benchmark artifact:
+
+- [results-2026-07-27-expanded-40.md](./results-2026-07-27-expanded-40.md)
+
 Current benchmark program sequencing:
 
 - now: expand historical real-issue batches

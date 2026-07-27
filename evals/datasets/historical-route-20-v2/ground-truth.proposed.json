@@ -1,0 +1,265 @@
+{
+  "warning": "expected_route values in this file are proposed from local benchmark artifacts, not yet manually validated against issue texts.",
+  "cases": [
+    {
+      "id": "aiohttp-3296",
+      "repository": "aio-libs/aiohttp",
+      "issue": 3296,
+      "url": "https://github.com/aio-libs/aiohttp/issues/3296",
+      "created_at": null,
+      "expected_route": [
+        "boundary",
+        "lifecycle",
+        "representation"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "black-1102",
+      "repository": "psf/black",
+      "issue": 1102,
+      "url": "https://github.com/psf/black/issues/1102",
+      "created_at": null,
+      "expected_route": [
+        "representation",
+        "compatibility",
+        "boundary"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "click-2832",
+      "repository": "pallets/click",
+      "issue": 2832,
+      "url": "https://github.com/pallets/click/issues/2832",
+      "created_at": null,
+      "expected_route": [
+        "contract",
+        "boundary",
+        "representation"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "compose-13474",
+      "repository": "docker/compose",
+      "issue": 13474,
+      "url": "https://github.com/docker/compose/issues/13474",
+      "created_at": null,
+      "expected_route": [
+        "precedence",
+        "integration",
+        "contract"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "cp-57281",
+      "repository": "python/cpython",
+      "issue": 57281,
+      "url": "https://github.com/python/cpython/issues/57281",
+      "created_at": null,
+      "expected_route": [
+        "boundary",
+        "precedence",
+        "concurrency"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "go-49075",
+      "repository": "golang/go",
+      "issue": 49075,
+      "url": "https://github.com/golang/go/issues/49075",
+      "created_at": null,
+      "expected_route": [
+        "concurrency",
+        "boundary",
+        "lifecycle"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "itsdangerous-102",
+      "repository": "pallets/itsdangerous",
+      "issue": 102,
+      "url": "https://github.com/pallets/itsdangerous/issues/102",
+      "created_at": null,
+      "expected_route": [
+        "representation",
+        "boundary",
+        "contract"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "mypy-20353",
+      "repository": "python/mypy",
+      "issue": 20353,
+      "url": "https://github.com/python/mypy/issues/20353",
+      "created_at": null,
+      "expected_route": [
+        "boundary",
+        "state_reuse",
+        "precedence"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "node-50269",
+      "repository": "nodejs/node",
+      "issue": 50269,
+      "url": "https://github.com/nodejs/node/issues/50269",
+      "created_at": null,
+      "expected_route": [
+        "concurrency",
+        "lifecycle",
+        "precedence"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "numpy-29391",
+      "repository": "numpy/numpy",
+      "issue": 29391,
+      "url": "https://github.com/numpy/numpy/issues/29391",
+      "created_at": null,
+      "expected_route": [
+        "lifecycle",
+        "boundary",
+        "observability"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "packaging-681",
+      "repository": "pypa/packaging",
+      "issue": 681,
+      "url": "https://github.com/pypa/packaging/issues/681",
+      "created_at": null,
+      "expected_route": [
+        "compatibility",
+        "representation",
+        "boundary"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "pandas-57702",
+      "repository": "pandas-dev/pandas",
+      "issue": 57702,
+      "url": "https://github.com/pandas-dev/pandas/issues/57702",
+      "created_at": null,
+      "expected_route": [
+        "contract",
+        "lifecycle",
+        "boundary"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "pluggy-219",
+      "repository": "pytest-dev/pluggy",
+      "issue": 219,
+      "url": "https://github.com/pytest-dev/pluggy/issues/219",
+      "created_at": null,
+      "expected_route": [
+        "integration",
+        "boundary",
+        "contract"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "prometheus-15186",
+      "repository": "prometheus/prometheus",
+      "issue": 15186,
+      "url": "https://github.com/prometheus/prometheus/issues/15186",
+      "created_at": null,
+      "expected_route": [
+        "precedence",
+        "boundary",
+        "observability"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "pytest-6194",
+      "repository": "pytest-dev/pytest",
+      "issue": 6194,
+      "url": "https://github.com/pytest-dev/pytest/issues/6194",
+      "created_at": null,
+      "expected_route": [
+        "state_reuse",
+        "boundary",
+        "integration"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "redis-15389",
+      "repository": "redis/redis",
+      "issue": 15389,
+      "url": "https://github.com/redis/redis/issues/15389",
+      "created_at": null,
+      "expected_route": [
+        "boundary",
+        "concurrency",
+        "representation"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "requests-6730",
+      "repository": "psf/requests",
+      "issue": 6730,
+      "url": "https://github.com/psf/requests/issues/6730",
+      "created_at": null,
+      "expected_route": [
+        "boundary",
+        "representation",
+        "contract"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "rust-76980",
+      "repository": "rust-lang/rust",
+      "issue": 76980,
+      "url": "https://github.com/rust-lang/rust/issues/76980",
+      "created_at": null,
+      "expected_route": [
+        "lifecycle",
+        "boundary",
+        "precedence"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "sqlalchemy-13059",
+      "repository": "sqlalchemy/sqlalchemy",
+      "issue": 13059,
+      "url": "https://github.com/sqlalchemy/sqlalchemy/issues/13059",
+      "created_at": null,
+      "expected_route": [
+        "boundary",
+        "contract",
+        "concurrency"
+      ],
+      "status": "proposed-from-artifacts"
+    },
+    {
+      "id": "urllib3-2999",
+      "repository": "urllib3/urllib3",
+      "issue": 2999,
+      "url": "https://github.com/urllib3/urllib3/issues/2999",
+      "created_at": null,
+      "expected_route": [
+        "boundary",
+        "representation",
+        "contract"
+      ],
+      "status": "proposed-from-artifacts"
+    }
+  ]
+}
