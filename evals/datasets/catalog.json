@@ -1,0 +1,32 @@
+{
+  "phase": "historical-issue-recovery",
+  "comparison_phase": "deferred-until-tooling-is-optimized",
+  "datasets": [
+    {
+      "id": "historical-route-20-v1",
+      "manifest": "evals/unmapped-repositories-20.json",
+      "kind": "historical-route-recovery",
+      "case_count": 20,
+      "status": "validated",
+      "validated_on": "2026-07-27",
+      "notes": [
+        "Current official benchmark set",
+        "Used to validate top-100 recall claims",
+        "External AI-vs-IssueAI comparisons are intentionally deferred"
+      ]
+    },
+    {
+      "id": "historical-route-20-v2",
+      "manifest": "evals/datasets/historical-route-20-v2/manifest.template.json",
+      "kind": "historical-route-recovery",
+      "case_count": 0,
+      "status": "planned",
+      "validated_on": null,
+      "notes": [
+        "Reserved structure for the next independent 20-case batch",
+        "Not populated yet",
+        "Not validated yet"
+      ]
+    }
+  ]
+}

@@ -11,3 +11,11 @@ The current benchmark posture is intentionally simple:
 Current validated benchmark artifact:
 
 - [results-2026-07-27.md](./results-2026-07-27.md)
+
+Current benchmark program sequencing:
+
+- now: expand historical real-issue batches
+- later: compare IssueAI against strong-prompt AI baselines
+
+This keeps the first benchmark phase focused on whether the method itself is
+recovering real issues consistently before adding cross-model comparisons.

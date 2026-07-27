@@ -15,9 +15,13 @@ class IssueAIPromptfooProvider {
     const root = path.resolve(__dirname, "..", "..");
     const outputDir = process.env.ISSUEAI_OUTPUT_DIR || path.join("/tmp", "issueai-promptfoo");
     const command = [
-      path.join(root, "evals", "scripts", "run_issueai_case_eval.py"),
+      "-m",
+      "issueai.cli",
+      "historical-case",
       "--case-id",
       String(vars.case_id || ""),
+      "--manifest",
+      path.join(root, "evals", "unmapped-repositories-20.json"),
       "--ground-truth",
       process.env.ISSUEAI_GROUND_TRUTH || "",
       "--repos-root",

@@ -5,10 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
-import subprocess
 import sys
-from collections import Counter, defaultdict
 from pathlib import Path
 
 from product_understanding import infer_product_understanding
@@ -18,175 +15,11 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from issueai.bug_hunt_runtime import runtime_root  # noqa: E402
-
-CANONICAL = {
-    "state": "state_reuse",
-    "state_reuse": "state_reuse",
-    "typing": "contract",
-    "compatibility": "compatibility",
-    "boundary": "boundary",
-    "precedence": "precedence",
-    "contract": "contract",
-    "lifecycle": "lifecycle",
-    "representation": "representation",
-    "concurrency": "concurrency",
-    "integration": "integration",
-    "observability": "observability",
-    "data_integrity": "data_integrity",
-}
-EXCLUDED_ROOTS = {
-    ".git",
-    ".github",
-    "docs",
-    "doc",
-    "test",
-    "tests",
-    "testing",
-    "fixtures",
-    "examples",
-    "example",
-    "bench",
-    "benchmark",
-    "vendor",
-    "third_party",
-    "node_modules",
-    "dist",
-    "build",
-}
-
-
-def canonicalize(name: str) -> str:
-    return CANONICAL.get(name, name)
-
-
-def run(command: list[str], cwd: Path) -> tuple[bool, str]:
-    try:
-        result = subprocess.run(command, cwd=cwd, capture_output=True, text=True, timeout=180)
-    except subprocess.TimeoutExpired:
-        return False, "timeout"
-    detail = (result.stderr or result.stdout or "").strip()[-2000:]
-    return result.returncode == 0, detail
+from issueai.core import HistoricalEvalRuntime, evaluate_historical_case  # noqa: E402
 
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text())
-
-
-def choose_scopes(normalized: dict) -> tuple[str, list[str], int]:
-    files = [
-        entry
-        for entry in normalized.get("files", [])
-        if entry.get("kind") == "source" and not entry.get("vendor") and not entry.get("generated")
-    ]
-    count = len(files)
-    if count <= 2200:
-        return "deep", [], count
-    roots = Counter()
-    for entry in files:
-        path = str(entry.get("path", ""))
-        top = path.split("/", 1)[0]
-        if not top or top in EXCLUDED_ROOTS or top.startswith("."):
-            continue
-        roots[top] += 1
-    selected = [name for name, _ in roots.most_common(4)]
-    if not selected:
-        return "deep", [], count
-    return "normal", selected, count
-
-
-def aggregate_scores(contextual: dict, plan: dict) -> dict[str, float]:
-    scores: defaultdict[str, float] = defaultdict(float)
-    branch_counts: Counter[str] = Counter()
-    inventory_counts: Counter[str] = Counter()
-    for index, row in enumerate(contextual.get("rank_input", [])[:60]):
-        base = max(2.0, 80.0 - float(index))
-        for mechanism in row.get("mechanisms", []):
-            scores[canonicalize(mechanism)] += base
-        for mechanism in row.get("matched_local_mechanisms", []):
-            scores[canonicalize(mechanism)] += base * 1.5
-    for index, book in enumerate(plan.get("playbooks", [])[:80]):
-        base = max(1.0, 60.0 - float(index))
-        for mechanism in book.get("mechanisms", []):
-            scores[canonicalize(mechanism)] += base * 2.0
-    for item in plan.get("inventory", []):
-        for mechanism in item.get("mechanisms", []):
-            inventory_counts[canonicalize(mechanism)] += 1
-    for branch in plan.get("branches", []):
-        for mechanism in branch.get("mechanisms", []):
-            branch_counts[canonicalize(mechanism)] += 1
-    for mechanism, count in inventory_counts.items():
-        scores[mechanism] += math.log1p(count) * 2.0
-    for mechanism, count in branch_counts.items():
-        scores[mechanism] += math.log1p(count) * 6.0
-    total_files = max(1, len(plan.get("inventory", [])))
-    total_branches = max(1, len(plan.get("branches", [])))
-    for mechanism in list(scores):
-        saturation = (inventory_counts.get(mechanism, 0) / total_files) + (branch_counts.get(mechanism, 0) / total_branches)
-        scores[mechanism] = scores[mechanism] / (1.0 + saturation * 8.0)
-    return dict(scores)
-
-
-def top_branch_files(plan: dict, top_mechanisms: list[str], limit: int = 6) -> list[str]:
-    file_counts: Counter[str] = Counter()
-    for branch in plan.get("branches", []):
-        mechanisms = [canonicalize(value) for value in branch.get("mechanisms", [])]
-        if any(value in top_mechanisms for value in mechanisms):
-            file_counts[str(branch.get("file_id"))] += 1
-    return [file_id for file_id, _ in file_counts.most_common(limit)]
-
-
-def shards_for_files(plan: dict, file_ids: list[str], limit: int = 3) -> list[int]:
-    wanted = set(file_ids)
-    hits = []
-    for index, shard in enumerate(plan.get("shards", [])):
-        overlap = len(wanted & set(shard))
-        if overlap:
-            hits.append((overlap, index))
-    hits.sort(reverse=True)
-    return [index for _, index in hits[:limit]]
-
-
-def enrich_with_materialization(
-    scores: dict[str, float],
-    plan: dict,
-    artifact_dir: Path,
-    repo_dir: Path,
-    plugin_root: Path,
-) -> dict[str, float]:
-    branch_map = {entry["id"]: entry for entry in plan.get("branches", [])}
-    ranked = sorted(scores.items(), key=lambda item: (-item[1], item[0]))
-    top_mechanisms = [name for name, _ in ranked[:4]]
-    file_ids = top_branch_files(plan, top_mechanisms)
-    shard_ids = shards_for_files(plan, file_ids)
-    plan_path = artifact_dir / "intelligent-plan.json"
-    for shard_id in shard_ids:
-        output = artifact_dir / f"materialized-shard-{shard_id}.json"
-        ok, detail = run(
-            [
-                "python3",
-                str(plugin_root / "scripts" / "materialize_discovery_shard.py"),
-                "--repo",
-                str(repo_dir),
-                "--plan",
-                str(plan_path),
-                "--shard",
-                str(shard_id),
-                "--output",
-                str(output),
-            ],
-            plugin_root.parent,
-        )
-        if not ok:
-            raise RuntimeError(f"materialize shard {shard_id} failed: {detail}")
-        payload = load_json(output)
-        for candidate in payload.get("candidates", []):
-            branch = branch_map.get(candidate.get("id"), {})
-            symbol = str(candidate.get("evidence", {}).get("symbol", ""))
-            symbol_bonus = 40.0 if symbol and symbol != "module-scope" else 0.0
-            for mechanism in branch.get("mechanisms", []):
-                key = canonicalize(mechanism)
-                scores[key] = scores.get(key, 0.0) + symbol_bonus + 8.0
-    return scores
 
 
 def classify(predicted: list[str], expected: list[str]) -> tuple[str, int]:
@@ -220,6 +53,11 @@ def main() -> int:
     work_root = args.output.with_suffix("")
     work_root.mkdir(parents=True, exist_ok=True)
     results = []
+    runtime = HistoricalEvalRuntime(
+        repo_root=REPO_ROOT,
+        runtime_root=args.runtime_root,
+        graph_path=args.graph,
+    )
 
     for case in manifest["cases"]:
         case_id = case["id"]
@@ -234,85 +72,44 @@ def main() -> int:
             raise FileNotFoundError(f"missing baseline artifacts for {case_id}")
         normalized = load_json(normalized_path)
         repository_map = load_json(map_path)
-        product = infer_product_understanding(case["repository"], repo_dir, normalized, repository_map)
-        product_path = artifact_dir / "product-understanding.json"
-        product_path.write_text(json.dumps(product, indent=2) + "\n")
-
-        mode, scopes, source_count = choose_scopes(normalized)
-        contextual_path = artifact_dir / "contextual-input.json"
-        ok, detail = run(
-            [
-                "python3",
-                str(args.runtime_root / "scripts" / "query_issue_evidence_graph.py"),
-                "--graph",
-                str(args.graph),
-                "--product-model",
-                str(product_path),
-                "--normalized",
-                str(normalized_path),
-                "--map",
-                str(map_path),
-                "--output",
-                str(contextual_path),
-                "--limit",
-                "60",
-            ],
-            REPO_ROOT,
+        evaluation = evaluate_historical_case(
+            case_id=case_id,
+            repository=case["repository"],
+            expected_route=truth[case_id]["expected_route"],
+            repo_dir=repo_dir,
+            normalized_path=normalized_path,
+            repository_map_path=map_path,
+            normalized=normalized,
+            repository_map=repository_map,
+            artifact_dir=artifact_dir,
+            runtime=runtime,
+            infer_product_understanding=infer_product_understanding,
+            contextual_limit=60,
+            scoring_contextual_limit=60,
+            scoring_contextual_base=80.0,
+            scoring_playbook_limit=80,
+            scoring_playbook_base=60.0,
+            use_materialization=True,
+            top_k=3,
         )
-        if not ok:
-            results.append({"id": case_id, "repository": case["repository"], "status": "error", "stage": "query_issue_evidence_graph.py", "detail": detail})
+        if evaluation.get("status") == "error":
+            results.append(evaluation)
             continue
-
-        plan_path = artifact_dir / "intelligent-plan.json"
-        command = [
-            "python3",
-            str(args.runtime_root / "scripts" / "build_intelligent_discovery_plan.py"),
-            "--repo",
-            str(repo_dir),
-            "--graph",
-            str(args.graph),
-            "--product-model",
-            str(product_path),
-            "--context-input",
-            str(contextual_path),
-            "--mode",
-            mode,
-            "--shard-size",
-            "120",
-            "--output",
-            str(plan_path),
-        ]
-        for scope in scopes:
-            command.extend(["--scope", scope])
-        ok, detail = run(command, REPO_ROOT)
-        if not ok:
-            results.append({"id": case_id, "repository": case["repository"], "status": "error", "stage": "build_intelligent_discovery_plan.py", "detail": detail})
-            continue
-
-        contextual = load_json(contextual_path)
-        plan = load_json(plan_path)
-        scores = aggregate_scores(contextual, plan)
-        try:
-            scores = enrich_with_materialization(scores, plan, artifact_dir, repo_dir, args.runtime_root)
-        except Exception as exc:  # noqa: BLE001
-            results.append({"id": case_id, "repository": case["repository"], "status": "error", "stage": "materialize_discovery_shard.py", "detail": str(exc)})
-            continue
-        ranked = sorted(scores.items(), key=lambda item: (-item[1], item[0]))
-        predicted = [name for name, _ in ranked[:3]]
-        expected = [canonicalize(value) for value in truth[case_id]["expected_route"]]
+        predicted = evaluation["topk"]
+        expected = evaluation["expected"]
         classification, hit_count = classify(predicted, expected)
         results.append(
             {
-                "id": case_id,
-                "repository": case["repository"],
+                "id": evaluation["id"],
+                "repository": evaluation["repository"],
                 "status": classification,
-                "source_count": source_count,
-                "mode": mode,
-                "scopes": scopes,
+                "source_count": evaluation["source_count"],
+                "mode": evaluation["mode"],
+                "scopes": evaluation["scopes"],
                 "predicted_route": predicted,
                 "expected_route": expected,
                 "route_hits": hit_count,
-                "top_scores": ranked[:8],
+                "top_scores": evaluation["top_scores"],
             }
         )
         print(json.dumps(results[-1], sort_keys=True), flush=True)

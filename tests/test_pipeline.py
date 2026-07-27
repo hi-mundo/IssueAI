@@ -4,6 +4,7 @@ import sys
 import unittest
 from pathlib import Path
 
+from issueai.cli import normalize_argv
 from issueai.core import IssueAIRequest, run_pipeline
 from issueai.hosts import default_host_plugins
 from issueai.providers import default_providers
@@ -57,3 +58,8 @@ class IssueAIPipelineTest(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertEqual(payload["request"]["repository"], "example/repo")
         self.assertIn("lifecycle", payload["plan"]["ordered_mechanisms"])
+
+    def test_cli_keeps_backward_compatible_default_mode(self) -> None:
+        self.assertEqual(normalize_argv(["--repository", "example/repo"]), ["pipeline", "--repository", "example/repo"])
+        self.assertEqual(normalize_argv(["pipeline", "--repository", "example/repo"]), ["pipeline", "--repository", "example/repo"])
+        self.assertEqual(normalize_argv(["historical-case", "--case-id", "cp-1"]), ["historical-case", "--case-id", "cp-1"])

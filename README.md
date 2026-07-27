@@ -161,6 +161,7 @@ The benchmark is now officialized inside this repository through:
 
 - [benchmarks/results-2026-07-27.md](./benchmarks/results-2026-07-27.md)
 - [evals/README.md](./evals/README.md)
+- [evals/datasets/catalog.json](./evals/datasets/catalog.json)
 - [evals/promptfoo/promptfooconfig.yaml](./evals/promptfoo/promptfooconfig.yaml)
 
 ## What “excellent” means here
@@ -241,6 +242,23 @@ The long-term shape is:
 - standalone Python core;
 - BYOK model/provider support;
 - canonical host adapters.
+
+## Benchmark sequencing
+
+IssueAI benchmark expansion is intentionally staged.
+
+Current phase:
+
+- grow the historical real-issue benchmark by adding more independent batches
+- keep the benchmark blind and structurally comparable across runs
+
+Deferred phase:
+
+- compare IssueAI against other agent hosts or models using strong prompts
+
+That comparison is important, but it should happen after IssueAI is more
+optimized as a usable/installable marketplace tool for hosts such as Codex,
+Claude, Cursor, and Copilot.
 
 ## Host-first, BYOK-second
 
