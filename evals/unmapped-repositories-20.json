@@ -1,0 +1,28 @@
+{
+  "method": "escape-chain-location-routing-v1",
+  "purpose": "Run hypothesis generation on historical snapshots without using the issue as a prompt to the reviewer.",
+  "snapshot_policy": "first parent on the default branch before issue.created_at; an explicit affected version is evidence, not a substitute for the commit pin",
+  "execution_boundary": "clone, checkout, normalize, map, reference-route, hypothesis generation; no dependency installation and no project execution",
+  "cases": [
+    {"id":"cp-98801","repository":"python/cpython","issue":98801,"created_at":"2022-10-28T09:46:45Z","url":"https://github.com/python/cpython/issues/98801","route":["state_reuse","lifecycle","observability"]},
+    {"id":"urllib3-2799","repository":"urllib3/urllib3","issue":2799,"created_at":"2022-11-11T09:49:46Z","url":"https://github.com/urllib3/urllib3/issues/2799","route":["lifecycle","boundary","representation"]},
+    {"id":"celery-4185","repository":"celery/celery","issue":4185,"created_at":"2017-08-07T13:41:13Z","url":"https://github.com/celery/celery/issues/4185","route":["concurrency","lifecycle","integration"]},
+    {"id":"aiohttp-2926","repository":"aio-libs/aiohttp","issue":2926,"created_at":"2018-04-10T15:49:51Z","url":"https://github.com/aio-libs/aiohttp/issues/2926","route":["lifecycle","boundary","concurrency"]},
+    {"id":"mypy-12664","repository":"python/mypy","issue":12664,"created_at":"2022-04-23T21:43:27Z","url":"https://github.com/python/mypy/issues/12664","route":["state_reuse","integration","observability"]},
+    {"id":"sqlalchemy-12990","repository":"sqlalchemy/sqlalchemy","issue":12990,"created_at":"2025-11-18T20:56:40Z","url":"https://github.com/sqlalchemy/sqlalchemy/issues/12990","route":["concurrency","representation","state_reuse"]},
+    {"id":"node-33166","repository":"nodejs/node","issue":33166,"created_at":"2020-04-30T14:25:51Z","url":"https://github.com/nodejs/node/issues/33166","route":["integration","lifecycle","observability"]},
+    {"id":"k8s-56903","repository":"kubernetes/kubernetes","issue":56903,"created_at":"2017-12-06T22:14:47Z","url":"https://github.com/kubernetes/kubernetes/issues/56903","route":["integration","concurrency","lifecycle"]},
+    {"id":"werkzeug-3118","repository":"pallets/werkzeug","issue":3118,"created_at":"2026-03-02T17:26:19Z","url":"https://github.com/pallets/werkzeug/issues/3118","route":["boundary","lifecycle","representation"]},
+    {"id":"pytest-6512","repository":"pytest-dev/pytest","issue":6512,"created_at":"2020-01-20T09:17:32Z","url":"https://github.com/pytest-dev/pytest/issues/6512","route":["lifecycle","state_reuse","integration"]},
+    {"id":"numpy-31618","repository":"numpy/numpy","issue":31618,"created_at":"2026-06-13T02:37:52Z","url":"https://github.com/numpy/numpy/issues/31618","route":["concurrency","integration","boundary"]},
+    {"id":"requests-5846","repository":"psf/requests","issue":5846,"created_at":"2021-06-25T13:18:23Z","url":"https://github.com/psf/requests/issues/5846","route":["integration","compatibility","observability"]},
+    {"id":"rust-148328","repository":"rust-lang/rust","issue":148328,"created_at":"2025-10-31T13:53:21Z","url":"https://github.com/rust-lang/rust/issues/148328","route":["representation","integration","boundary"]},
+    {"id":"go-73141","repository":"golang/go","issue":73141,"created_at":"2025-04-02T20:36:49Z","url":"https://github.com/golang/go/issues/73141","route":["concurrency","lifecycle","boundary"]},
+    {"id":"terraform-38466","repository":"hashicorp/terraform","issue":38466,"created_at":"2026-04-29T15:01:57Z","url":"https://github.com/hashicorp/terraform/issues/38466","route":["precedence","boundary","integration"]},
+    {"id":"laravel-59600","repository":"laravel/framework","issue":59600,"created_at":"2026-04-08T16:51:00Z","url":"https://github.com/laravel/framework/issues/59600","route":["precedence","state_reuse","boundary"]},
+    {"id":"rails-49463","repository":"rails/rails","issue":49463,"created_at":"2023-10-03T02:01:32Z","url":"https://github.com/rails/rails/issues/49463","route":["state_reuse","precedence","compatibility"]},
+    {"id":"flask-5836","repository":"pallets/flask","issue":5836,"created_at":"2025-10-25T20:08:38Z","url":"https://github.com/pallets/flask/issues/5836","route":["integration","compatibility","observability"]},
+    {"id":"packaging-774","repository":"pypa/packaging","issue":774,"created_at":"2024-01-16T02:04:50Z","url":"https://github.com/pypa/packaging/issues/774","route":["representation","integration","boundary"]},
+    {"id":"click-3065","repository":"pallets/click","issue":3065,"created_at":"2025-09-18T18:14:19Z","url":"https://github.com/pallets/click/issues/3065","route":["precedence","boundary","integration"]}
+  ]
+}

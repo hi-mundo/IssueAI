@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["document_type", "schema_version", "corpora", "nodes", "edges", "taxonomy"],
+  "properties": {
+    "document_type": {"const": "bug-hunt.issue-evidence-graph"},
+    "schema_version": {"const": "1.0"},
+    "corpora": {"type": "array", "minItems": 1},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "attributes", "evidence"],
+        "properties": {
+          "id": {"type": "string"},
+          "type": {"type": "string", "enum": ["issue", "playbook", "mechanism", "condition", "technology", "surface", "symptom", "complexity", "validation"]},
+          "attributes": {"type": "object"},
+          "evidence": {
+            "type": "object",
+            "required": ["source", "record_index"],
+            "properties": {
+              "source": {"type": "string"},
+              "record_index": {"type": "integer", "minimum": 0},
+              "url": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "relation", "evidence_ids"],
+        "properties": {
+          "from": {"type": "string"},
+          "to": {"type": "string"},
+        "relation": {"type": "string"},
+        "evidence_ids": {"type": "array"}
+      }
+    }
+  },
+    "taxonomy": {
+      "type": "object",
+      "required": ["mechanisms", "conditions", "surfaces"],
+      "properties": {
+        "mechanisms": {"type": "array"},
+        "playbook_families": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["count", "signatures", "issue_ids"],
+            "properties": {
+              "count": {"type": "integer", "minimum": 0},
+              "signatures": {"type": "array"},
+              "issue_ids": {"type": "array"}
+            }
+          }
+        },
+        "conditions": {"type": "array"},
+        "surfaces": {"type": "array"}
+      }
+    }
+  }
+}

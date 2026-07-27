@@ -157,6 +157,12 @@ It means IssueAI is already strong at:
 - not losing the real issue;
 - generating valid hypothesis sets for later testing.
 
+The benchmark is now officialized inside this repository through:
+
+- [benchmarks/results-2026-07-27.md](./benchmarks/results-2026-07-27.md)
+- [evals/README.md](./evals/README.md)
+- [evals/promptfoo/promptfooconfig.yaml](./evals/promptfoo/promptfooconfig.yaml)
+
 ## What “excellent” means here
 
 The current result is excellent for **coverage of real issue hypotheses**.

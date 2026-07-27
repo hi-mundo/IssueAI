@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["document_type", "version", "collection", "quality_policy", "issues"],
+  "properties": {
+    "document_type": {"const": "bug-hunt.structured-issue-corpus"},
+    "version": {"type": "string"},
+    "collection": {"type": "object", "required": ["target_count", "selected_count", "api", "deduplicated_against"]},
+    "quality_policy": {"type": "object", "required": ["shallow", "structured", "deep"]},
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["case_id", "repository", "issue_number", "url", "title", "body", "complexity_tier", "evidence", "derived", "playbook", "validation"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 3},
+          "repository": {"type": "string", "minLength": 3},
+          "issue_number": {"type": "integer", "minimum": 1},
+          "url": {"type": "string", "minLength": 10},
+          "title": {"type": "string"},
+          "body": {"type": "string"},
+          "complexity_tier": {"type": "string", "enum": ["shallow", "structured", "deep"]},
+          "evidence": {"type": "object", "required": ["signals", "evidence_score", "source", "source_url"]},
+          "derived": {"type": "object", "required": ["mechanisms", "conditions", "surfaces", "technology", "expected_observed", "oracle", "failure_chain"]},
+          "playbook": {"$ref": "issue-playbook.schema.json"},
+          "validation": {"type": "object", "required": ["status", "confidence", "reproduction"]}
+        }
+      }
+    }
+  }
+}

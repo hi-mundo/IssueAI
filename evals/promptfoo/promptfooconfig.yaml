@@ -1,0 +1,15 @@
+description: IssueAI historical route benchmark
+
+prompts:
+  - "Run the official historical route benchmark case."
+
+providers:
+  - id: file://./provider.js
+    label: issueai_historical_route
+
+defaultTest:
+  options:
+    disableVarExpansion: true
+
+tests:
+  - file://./tests.yaml

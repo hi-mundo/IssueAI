@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "candidate_id",
+    "review_id",
+    "receipts"
+  ],
+  "properties": {
+    "candidate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "receipts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "phase",
+          "status"
+        ],
+        "properties": {
+          "phase": {
+            "type": "string",
+            "enum": [
+              "discovery",
+              "validation",
+              "probe",
+              "reconciliation",
+              "finalization"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "suppressed",
+              "not_applicable",
+              "deferred"
+            ]
+          },
+          "artifact_path": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

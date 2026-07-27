@@ -23,3 +23,14 @@ package-dir = {"" = "."}
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["issueai*"]
+
+[tool.setuptools.package-data]
+issueai = [
+  "bug_hunt_runtime/workflow.json",
+  "bug_hunt_runtime/assets/*",
+  "bug_hunt_runtime/prompts/**/*.md",
+  "bug_hunt_runtime/references/*.md",
+  "bug_hunt_runtime/schemas/*.json",
+  "bug_hunt_runtime/scripts/*.py",
+  "bug_hunt_runtime/templates/**/*.md",
+]

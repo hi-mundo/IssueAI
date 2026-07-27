@@ -1,0 +1,121 @@
+tests:
+  - vars: { case_id: "cp-98801" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "urllib3-2799" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "celery-4185" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "aiohttp-2926" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "mypy-12664" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "sqlalchemy-12990" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "node-33166" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "k8s-56903" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "werkzeug-3118" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "pytest-6512" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "numpy-31618" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "requests-5846" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "rust-148328" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "go-73141" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "terraform-38466" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "laravel-59600" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "rails-49463" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "flask-5836" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "packaging-774" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;
+  - vars: { case_id: "click-3065" }
+    assert:
+      - type: javascript
+        value: |
+          const payload = JSON.parse(output);
+          return payload.top100_all === true;

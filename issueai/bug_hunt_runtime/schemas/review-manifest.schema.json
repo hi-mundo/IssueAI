@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "documentType",
+    "review"
+  ],
+  "properties": {
+    "documentType": {
+      "const": "bug-hunt.review-manifest"
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "id",
+        "mode",
+        "target",
+        "artifacts"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "deep"
+          ]
+        },
+        "target": {
+          "type": "object",
+          "required": [
+            "repository"
+          ],
+          "properties": {
+            "repository": {
+              "type": "string",
+              "minLength": 1
+            },
+            "includePaths": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "excludePaths": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        "artifacts": {
+          "type": "object",
+          "required": [
+            "manifestPath",
+            "findingsPath",
+            "coveragePath"
+          ],
+          "properties": {
+            "manifestPath": {
+              "type": "string",
+              "minLength": 1
+            },
+            "findingsPath": {
+              "type": "string",
+              "minLength": 1
+            },
+            "coveragePath": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reportPath": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
