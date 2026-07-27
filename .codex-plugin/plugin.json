@@ -1,0 +1,38 @@
+{
+  "name": "issueai",
+  "version": "0.1.0",
+  "description": "Hypothesis-driven issue and bug discovery for real codebases.",
+  "author": {
+    "name": "Raimundo",
+    "url": "https://github.com/hi-mundo"
+  },
+  "homepage": "https://github.com/hi-mundo/IssueAI",
+  "repository": "https://github.com/hi-mundo/IssueAI",
+  "license": "MIT",
+  "keywords": [
+    "bugs",
+    "issues",
+    "reliability",
+    "hypotheses",
+    "benchmark"
+  ],
+  "interface": {
+    "displayName": "IssueAI",
+    "shortDescription": "Find real bugs through contextual hypotheses",
+    "longDescription": "Understand the repository and product before guessing, retrieve structured historical issue patterns, generate bounded bug hypotheses, and preserve benchmarkable outputs for later validation.",
+    "developerName": "Raimundo",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Execute"
+    ],
+    "defaultPrompt": [
+      "Run IssueAI on this repository.",
+      "Find likely real bugs in this project.",
+      "Generate contextual defect hypotheses for this codebase."
+    ],
+    "brandColor": "#ff5a3d",
+    "composerIcon": "./assets/logo.png",
+    "logo": "./assets/logo.png"
+  }
+}
