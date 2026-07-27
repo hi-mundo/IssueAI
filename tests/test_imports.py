@@ -24,6 +24,7 @@ class IssueAIImportsTest(unittest.TestCase):
 
     def test_top_level_docs_exist(self) -> None:
         self.assertTrue((ROOT / "README.md").exists())
+        self.assertTrue((ROOT / "HOW-TO-IMPLEMENT.md").exists())
         self.assertTrue((ROOT / "PAPER.md").exists())
         self.assertTrue((ROOT / "TODO.md").exists())
 
