@@ -81,18 +81,20 @@ real bug discovery.
 
 ## Quick install
 
-Paste one of these prompts into your editor agent to install IssueAI from this repository.
+Use the host's plugin or marketplace flow first. These prompts are meant to be
+pasted directly into the agent so it can perform the correct install steps and
+confirm activation.
 
 Codex:
 
 ```text
-Install the plugin from https://github.com/hi-mundo/IssueAI and enable it for this workspace.
+Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this workspace, install the IssueAI plugin, enable it here, and confirm the plugin is active.
 ```
 
 Claude:
 
 ```text
-Install the plugin from https://github.com/hi-mundo/IssueAI and enable it for this project.
+Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this project, install the IssueAI plugin, enable it here, and confirm the plugin is active.
 ```
 
 ## Compatibility
@@ -102,18 +104,26 @@ IssueAI is designed as a host-first plugin for AI coding agents, especially:
 - Codex
 - Claude
 
-It also keeps compatibility for teams that want to use it outside plugin installation:
-
-- BYOK usage for local experimentation and testing
-- CLI usage for evals, benchmarks, and manual runs
-
-So the intended order is:
+The intended order is:
 
 1. easiest path: install it into your coding agent
 2. fallback path: run it locally with your own keys or local runtime
 3. benchmark path: use the CLI surfaces for historical-case and eval workflows
 
 For exact usage modes and examples, see [USAGE.md](./USAGE.md).
+
+## Other ways to use it
+
+IssueAI can also be used outside plugin installation when needed:
+
+- BYOK usage for local experimentation and testing
+- CLI usage for evals, benchmarks, and manual runs
+
+That makes the product usable in three layers:
+
+1. plugin inside Codex or Claude
+2. BYOK-compatible local execution
+3. CLI-driven benchmark and eval workflows
 
 ## What problem does it solve?
 
