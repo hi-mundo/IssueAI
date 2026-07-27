@@ -23,7 +23,7 @@ Current primary hosts:
 Paste this into Codex:
 
 ```text
-Install the plugin from https://github.com/hi-mundo/IssueAI and enable it for this workspace.
+Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this workspace, install the IssueAI plugin, enable it here, and confirm the plugin is active. After installed show me the capabilities and examples of how to use.
 ```
 
 ### Claude install prompt
@@ -31,7 +31,7 @@ Install the plugin from https://github.com/hi-mundo/IssueAI and enable it for th
 Paste this into Claude:
 
 ```text
-Install the plugin from https://github.com/hi-mundo/IssueAI and enable it for this project.
+Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this project, install the IssueAI plugin, enable it here, and confirm the plugin is active. After installed show me the capabilities and examples of how to use.
 ```
 
 ## BYOK-compatible usage

@@ -16,10 +16,11 @@
     "hypotheses",
     "benchmark"
   ],
+  "skills": "./skills/",
   "interface": {
-    "displayName": "IssueAI",
-    "shortDescription": "Find real bugs through contextual hypotheses",
-    "longDescription": "Understand the repository and product before guessing, retrieve structured historical issue patterns, generate bounded bug hypotheses, and preserve benchmarkable outputs for later validation.",
+    "displayName": "Issue Hunt",
+    "shortDescription": "Find real issues through contextual bug hypotheses",
+    "longDescription": "IssueAI powers Issue Hunt: understand the repository and intended behavior first, generate contextual issue hypotheses, validate them with evidence, and keep benchmark and eval surfaces separate from default end-user workflows.",
     "developerName": "Raimundo",
     "category": "Developer Tools",
     "capabilities": [
@@ -27,12 +28,12 @@
       "Execute"
     ],
     "defaultPrompt": [
-      "Run IssueAI on this repository.",
-      "Find likely real bugs in this project.",
-      "Generate contextual defect hypotheses for this codebase."
+      "Run Issue Hunt on this repository.",
+      "Find likely real issues in this project.",
+      "Model intended behavior and validate contextual issue hypotheses for this codebase."
     ],
     "brandColor": "#ff5a3d",
-    "composerIcon": "./assets/logo.png",
-    "logo": "./assets/logo.png"
+    "composerIcon": "./assets/logo.svg",
+    "logo": "./assets/logo.svg"
   }
 }

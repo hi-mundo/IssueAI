@@ -100,6 +100,10 @@ These should stay thin and mainly handle:
 This is the current deterministic workflow/runtime layer that preserves the
 validated bug-hunt method and benchmark harness.
 
+It is intentionally still internal. The public product surface should say
+`IssueAI` and `Issue Hunt`, even while this runtime keeps some legacy internal
+names during migration.
+
 ### Benchmark surfaces
 
 - `evals/`
@@ -120,6 +124,28 @@ The repository follows a public multi-host plugin pattern:
 - mirrored manifests per host
 - thin host-specific wrappers
 - documentation separated by presentation, usage, and implementation
+
+## What we can reuse from the old I2B plugin
+
+IssueAI is an evolution of the old structured-vibecoding I2B posture. The best
+parts to keep are not the old branding, but the discipline:
+
+- intent-first review instead of code-first guessing
+- deterministic preflight before analysis
+- explicit report contracts
+- defect taxonomy and behavior modeling references
+- strong separation between observation, hypothesis, and validated finding
+
+Concretely, the I2B lineage is still valuable for:
+
+- intended-behavior modeling
+- guardrail-style preflight
+- report validation
+- evidence discipline
+
+That is why the new plugin exposes user-facing skills such as intended behavior
+modeling and validation, while benchmark/mutation helpers stay outside the
+default installed surface.
 
 ## What to optimize next
 

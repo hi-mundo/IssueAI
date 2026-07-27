@@ -20,11 +20,12 @@ class IssueAIPluginManifestTests(unittest.TestCase):
         self.assertEqual(codex["name"], "issueai")
         self.assertEqual(codex["name"], claude["name"])
         self.assertEqual(codex["name"], cursor["name"])
-        self.assertEqual(codex["interface"]["displayName"], "IssueAI")
-        self.assertEqual(codex["interface"]["logo"], "./assets/logo.png")
+        self.assertEqual(codex["interface"]["displayName"], "Issue Hunt")
+        self.assertEqual(codex["interface"]["logo"], "./assets/logo.svg")
+        self.assertEqual(codex["skills"], "./skills/")
 
     def test_logo_asset_exists(self) -> None:
-        self.assertTrue((ROOT / "assets" / "logo.png").exists())
+        self.assertTrue((ROOT / "assets" / "logo.svg").exists())
 
 
 if __name__ == "__main__":

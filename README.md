@@ -1,6 +1,6 @@
 <p align="center">
   <span style="display:inline-block; padding:16px; background:#ffffff; border-radius:20px;">
-    <img src="./assets/logo.png" alt="IssueAI logo" width="160" />
+    <img src="./assets/logo.svg" alt="IssueAI logo" width="160" />
   </span>
 </p>
 
@@ -29,7 +29,7 @@ review, generic static analysis, and shallow “review this repo” prompts.
 
 ## What is this?
 
-IssueAI is a plugin for AI coding agents that helps them find real bugs in a
+IssueAI is a plugin for AI coding agents that exposes the Issue Hunt workflow to help them find real bugs in a
 repository instead of stopping at superficial code review comments.
 
 It is built for the class of defects that usually escape obvious checks:
@@ -88,13 +88,13 @@ confirm activation.
 Codex:
 
 ```text
-Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this workspace, install the IssueAI plugin, enable it here, and confirm the plugin is active.
+Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this workspace, install the IssueAI plugin, enable it here, and confirm the plugin is active. After installed show me the capabilities and examples of how to use.
 ```
 
 Claude:
 
 ```text
-Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this project, install the IssueAI plugin, enable it here, and confirm the plugin is active.
+Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this project, install the IssueAI plugin, enable it here, and confirm the plugin is active. After installed show me the capabilities and examples of how to use.
 ```
 
 ## Compatibility
@@ -172,6 +172,25 @@ finished.
 - [TODO.md](./TODO.md): roadmap and open work
 - [evals/README.md](./evals/README.md): benchmark runtime details
 - [benchmarks/README.md](./benchmarks/README.md): dated benchmark result summaries
+
+## Installed vs internal surfaces
+
+Installed by default:
+
+- Issue Hunt workflow
+- intended behavior modeling
+- issue hypothesis generation
+- issue hypothesis validation
+- reference-graph construction
+
+Internal or eval-only:
+
+- historical replay and benchmark runners
+- dataset derivation and route evaluation
+- mutation and public-repo test harnesses
+
+Those internal surfaces stay in `evals/` and are not part of the default plugin
+skill list.
 
 ## License
 
