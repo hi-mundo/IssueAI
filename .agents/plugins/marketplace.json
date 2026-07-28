@@ -1,0 +1,16 @@
+{
+  "name": "issueai-marketplace",
+  "owner": {
+    "name": "Raimundo",
+    "url": "https://github.com/hi-mundo"
+  },
+  "metadata": {
+    "description": "IssueAI plugin marketplace source."
+  },
+  "plugins": [
+    {
+      "name": "issueai",
+      "source": "."
+    }
+  ]
+}
