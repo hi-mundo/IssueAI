@@ -15,7 +15,7 @@ class IssueAIImportsTest(unittest.TestCase):
 
     def test_model_contains_benchmark_summary(self) -> None:
         model = IssueAIModel()
-        self.assertEqual(model.name, "IssueAI")
+        self.assertEqual(model.name, "AIssuer")
         self.assertEqual(model.benchmark_summary["top20_success"], "20/20")
         self.assertEqual(model.benchmark_summary["top100_diagnostic"], "20/20")
 

@@ -1,8 +1,8 @@
-# IssueAI Paper
+# AIssuer Paper
 
 ## Abstract
 
-IssueAI is a hypothesis-driven issue and bug discovery system for real
+AIssuer is a hypothesis-driven issue and bug discovery system for real
 codebases. It is designed to reduce false negatives in mature repositories
 where the real problem often survives many releases before somebody finally
 notices it.
@@ -30,11 +30,11 @@ Typical failure pattern:
 - the model falls back to broad, generic bug guesses
 - the exact real issue path gets missed
 
-IssueAI is designed to close that gap.
+AIssuer is designed to close that gap.
 
 ## System overview
 
-IssueAI combines:
+AIssuer combines:
 
 - repository understanding
 - product understanding
@@ -51,7 +51,7 @@ my repo” prompt.
 
 ### 1. Understanding first
 
-Before hypothesis generation, IssueAI reconstructs:
+Before hypothesis generation, AIssuer reconstructs:
 
 - what the product is
 - repository scope and boundaries
@@ -76,7 +76,7 @@ Benefits:
 
 ### 3. Repository map and surface selection
 
-IssueAI builds a bounded repository map and identifies high-value surfaces such
+AIssuer builds a bounded repository map and identifies high-value surfaces such
 as:
 
 - async runtime paths
@@ -87,7 +87,7 @@ as:
 
 ### 4. Historical issue corpus and playbooks
 
-IssueAI uses a structured corpus of real historical issues.
+AIssuer uses a structured corpus of real historical issues.
 
 Each issue contributes structured signals such as:
 
@@ -104,7 +104,7 @@ implicit training-memory hope.
 
 ### 5. Contextual graph query
 
-IssueAI does not retrieve issue references only through technology keywords.
+AIssuer does not retrieve issue references only through technology keywords.
 
 It also uses:
 
@@ -120,7 +120,7 @@ failure patterns that are plausible here.”
 
 ### 6. Intelligent discovery plan
 
-From local evidence plus historical context, IssueAI creates a bounded
+From local evidence plus historical context, AIssuer creates a bounded
 hypothesis plan:
 
 - inventory of relevant files
@@ -142,7 +142,7 @@ The intended end state is:
 
 ## Benchmark framing
 
-IssueAI is currently benchmarked against real issue histories, not toy-only
+AIssuer is currently benchmarked against real issue histories, not toy-only
 examples.
 
 Current validated result in this workspace on **July 27, 2026**:
@@ -161,11 +161,11 @@ This supports a strong recall claim, not a claim of perfect ranking purity.
 Follow-up comparison in this workspace on **Tuesday, July 28, 2026**:
 
 - same 40-case historical set
-- IssueAI: **40/40** top-20 success
+- AIssuer: **40/40** top-20 success
 - Codex-only strong-prompt baseline: **24/40** top-20 success
 
 That comparison does not reuse the exact same internal ranking harness, but it
-is strong product-level evidence that IssueAI adds retrieval value beyond a
+is strong product-level evidence that AIssuer adds retrieval value beyond a
 good host-native prompt alone.
 
 ## Interpretation of current result
@@ -208,7 +208,7 @@ This matters because many subtle defects:
 
 ## Packaging and product direction
 
-IssueAI began as a plugin-driven workflow, but it should not stay conceptually
+AIssuer began as a plugin-driven workflow, but it should not stay conceptually
 trapped inside a single host.
 
 The long-term shape is:
@@ -246,7 +246,7 @@ completed in this workspace today.
 
 ## Conclusion
 
-IssueAI already looks like a real project direction rather than a prompt
+AIssuer already looks like a real project direction rather than a prompt
 experiment.
 
 The next step is not basic viability proof. The next step is product and method

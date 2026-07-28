@@ -12,7 +12,7 @@ class HistoricalEvalRuntimeTests(unittest.TestCase):
     def test_write_product_understanding_emits_json_document(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             output_path = Path(tmpdir) / "product-understanding.json"
-            payload = {"product": "IssueAI", "capabilities": ["plugin", "byok"]}
+            payload = {"product": "AIssuer", "capabilities": ["plugin", "byok"]}
 
             write_product_understanding(output_path, payload)
 

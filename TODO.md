@@ -1,4 +1,4 @@
-# IssueAI TODO
+# AIssuer TODO
 
 ## Product packaging
 
@@ -30,7 +30,7 @@
 
 - add per-host installation guides
 - add a more explicit architecture diagram
-- document how IssueAI is expected to run inside host agents vs manual mode
+- document how AIssuer is expected to run inside host agents vs manual mode
 - document benchmark asset preparation workflow for future batches
 
 ## Engineering

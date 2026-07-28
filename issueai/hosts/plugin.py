@@ -1,4 +1,4 @@
-"""Host-first integration descriptors for IssueAI."""
+"""Host-first integration descriptors for AIssuer."""
 
 from __future__ import annotations
 

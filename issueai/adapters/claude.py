@@ -6,11 +6,11 @@ from .base import AdapterDescriptor
 
 
 class ClaudeAdapter:
-    """Describe how IssueAI plugs into Claude-hosted workflows."""
+    """Describe how AIssuer plugs into Claude-hosted workflows."""
 
     descriptor = AdapterDescriptor(
         host="claude",
-        purpose="Run IssueAI workflows inside Claude-facing tools as a thin host adapter.",
+        purpose="Run AIssuer workflows inside Claude-facing tools as a thin host adapter.",
         runtime="python",
     )
 
@@ -20,5 +20,5 @@ class ClaudeAdapter:
             "host": cls.descriptor.host,
             "purpose": cls.descriptor.purpose,
             "runtime": cls.descriptor.runtime,
-            "shape": "thin adapter over the shared IssueAI Python core",
+            "shape": "thin adapter over the shared AIssuer Python core",
         }

@@ -1,4 +1,4 @@
-"""Core IssueAI concepts."""
+"""Core AIssuer concepts."""
 
 from .contracts import (
     HistoricalBenchmarkPayloadContract,

@@ -6,11 +6,11 @@ from .base import AdapterDescriptor
 
 
 class CodexAdapter:
-    """Describe how IssueAI plugs into Codex-hosted workflows."""
+    """Describe how AIssuer plugs into Codex-hosted workflows."""
 
     descriptor = AdapterDescriptor(
         host="codex",
-        purpose="Run IssueAI workflows inside Codex as a thin host adapter.",
+        purpose="Run AIssuer workflows inside Codex as a thin host adapter.",
         runtime="python",
     )
 
@@ -20,5 +20,5 @@ class CodexAdapter:
             "host": cls.descriptor.host,
             "purpose": cls.descriptor.purpose,
             "runtime": cls.descriptor.runtime,
-            "shape": "thin adapter over the shared IssueAI Python core",
+            "shape": "thin adapter over the shared AIssuer Python core",
         }

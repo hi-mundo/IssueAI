@@ -1,8 +1,8 @@
-# Using IssueAI
+# Using AIssuer
 
 ## Main usage modes
 
-IssueAI is designed to be used in three ways:
+AIssuer is designed to be used in three ways:
 
 1. plugin inside an AI coding agent
 2. BYOK-compatible local usage
@@ -31,7 +31,7 @@ Current primary hosts:
 Paste this into Codex:
 
 ```text
-Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this workspace, install the IssueAI plugin, enable it here, and confirm the plugin is active. After installed show me the capabilities and examples of how to use.
+Add https://github.com/hi-mundo/AIssuer as a plugin source or marketplace for this workspace, install the AIssuer plugin, enable it here, and confirm the plugin is active. After installed show me the capabilities and examples of how to use.
 ```
 
 ### Claude install prompt
@@ -39,7 +39,7 @@ Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for th
 Paste this into Claude:
 
 ```text
-Add https://github.com/hi-mundo/IssueAI as a plugin source or marketplace for this project, install the IssueAI plugin, enable it here, and confirm the plugin is active. After installed show me the capabilities and examples of how to use.
+Add https://github.com/hi-mundo/AIssuer as a plugin source or marketplace for this project, install the AIssuer plugin, enable it here, and confirm the plugin is active. After installed show me the capabilities and examples of how to use.
 ```
 
 ## Default plugin flow
@@ -53,7 +53,7 @@ Inside the plugin, the normal sequence is:
 
 ## BYOK-compatible usage
 
-IssueAI is also compatible with teams that want to run it outside marketplace or
+AIssuer is also compatible with teams that want to run it outside marketplace or
 plugin flows.
 
 That mode exists for:
@@ -101,6 +101,6 @@ Use CLI mode when you need:
 
 ## Which mode should you choose?
 
-- use the plugin if you want IssueAI inside your normal coding agent workflow
+- use the plugin if you want AIssuer inside your normal coding agent workflow
 - use BYOK/local mode if you need compatibility or custom execution control
 - use the CLI if you are running evals, benchmarks, or structured manual tests

@@ -1,6 +1,6 @@
-# IssueAI official evals
+# AIssuer official evals
 
-This directory contains the officialized historical-route benchmark assets for IssueAI.
+This directory contains the officialized historical-route benchmark assets for AIssuer.
 
 The benchmark posture is:
 
@@ -15,7 +15,7 @@ The benchmark posture is:
 - [datasets/catalog.json](./datasets/catalog.json)
 - [datasets/README.md](./datasets/README.md)
 
-This is the 20-case historical route benchmark used to validate the current IssueAI recall claim.
+This is the 20-case historical route benchmark used to validate the current AIssuer recall claim.
 
 Dataset growth is now expected to happen by adding new independent historical
 batches to the dataset catalog rather than replacing this first validated set.
@@ -54,7 +54,7 @@ We also ran the same 40-case set against a Codex-only strong prompt baseline.
 
 Observed comparison:
 
-- IssueAI: **40/40** cases passed `top20_all`
+- AIssuer: **40/40** cases passed `top20_all`
 - Codex-only baseline: **24/40** cases passed `top20_all`
 - Codex-only baseline top-10 view: **20/40**
 
@@ -71,7 +71,7 @@ Method summary for the baseline:
 Important caveat:
 
 - this is a product-level comparison, not a byte-identical replay of the
-  internal IssueAI ranking harness
+  internal AIssuer ranking harness
 - the baseline produced up to 20 ranked hypotheses which were then scored by
   the first occurrence of each expected mechanism
 
@@ -85,16 +85,16 @@ There are two benchmark entrypoints:
    - [promptfoo/promptfooconfig.yaml](./promptfoo/promptfooconfig.yaml)
 
 Both entrypoints now share the same historical-route evaluation logic through the
-IssueAI core module instead of duplicating route scoring behavior in each CLI.
+AIssuer core module instead of duplicating route scoring behavior in each CLI.
 
 ## Important current constraint
 
-At this stage, the eval runtime still uses the vendored `bug_hunt_runtime` inside the `IssueAI` package.
+At this stage, the eval runtime still uses the vendored `bug_hunt_runtime` inside the `AIssuer` package.
 
 That is intentional during migration:
 
 - benchmark behavior stays 1:1 with the validated predecessor;
-- the standalone `IssueAI` core can evolve without losing the benchmark harness.
+- the standalone `AIssuer` core can evolve without losing the benchmark harness.
 
 ## Required external inputs
 
@@ -112,7 +112,7 @@ Those are intentionally external so the benchmark remains blind from the runtime
 
 Completed:
 
-- compare IssueAI against a Codex-only strong-prompt baseline on the same
+- compare AIssuer against a Codex-only strong-prompt baseline on the same
   40-case set
 
 Next benchmark expansion steps:

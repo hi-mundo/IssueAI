@@ -1,4 +1,4 @@
-"""Core product model for IssueAI."""
+"""Core product model for AIssuer."""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ from dataclasses import dataclass, field
 
 @dataclass(frozen=True)
 class IssueAIModel:
-    """High-level description of the IssueAI product boundary."""
+    """High-level description of the AIssuer product boundary."""
 
-    name: str = "IssueAI"
+    name: str = "AIssuer"
     mode: str = "hypothesis-driven issue discovery"
     strengths: tuple[str, ...] = (
         "repository understanding",

@@ -1,6 +1,6 @@
 # Benchmarks
 
-This directory stores benchmark notes and reproducible result summaries for IssueAI.
+This directory stores benchmark notes and reproducible result summaries for AIssuer.
 
 The current benchmark posture is intentionally simple:
 

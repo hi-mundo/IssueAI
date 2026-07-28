@@ -1,8 +1,8 @@
-# IssueAI implementation
+# AIssuer implementation
 
 ## Product posture
 
-IssueAI should be implemented as one product core with thin host adapters, not
+AIssuer should be implemented as one product core with thin host adapters, not
 as separate forked workflows per platform.
 
 Current intended host posture:
@@ -17,7 +17,7 @@ automation, but it is not the main product posture.
 
 ## What the implementation should preserve
 
-IssueAI is not meant to be:
+AIssuer is not meant to be:
 
 - a generic linter replacement
 - an unbounded brute-force repo summarizer
@@ -46,7 +46,7 @@ Current direction:
 Current high-level layout:
 
 ```text
-IssueAI/
+AIssuer/
   .codex-plugin/
   .claude-plugin/
   .cursor-plugin/
@@ -111,7 +111,7 @@ These are the host-facing plugin entry points.
 
 They should expose the same public product contract:
 
-- IssueAI is the plugin/product name
+- AIssuer is the plugin/product name
 - Repository Recon is the first-pass structural workflow
 - Repository Intent Review is the semantic implementation-vs-intent workflow
 - Issue Hunt is the later deep workflow
@@ -152,7 +152,7 @@ This is the current deterministic workflow/runtime layer that preserves the
 validated bug-hunt method and benchmark harness.
 
 It is intentionally still internal. The public product surface should say
-`IssueAI` and `Issue Hunt`, even while this runtime keeps some legacy internal
+`AIssuer` and `Issue Hunt`, even while this runtime keeps some legacy internal
 names during migration.
 
 ### Benchmark surfaces
@@ -200,7 +200,7 @@ The preflight should always:
 
 ## What we can reuse from the old I2B plugin
 
-IssueAI is an evolution of the old structured-vibecoding I2B posture. The best
+AIssuer is an evolution of the old structured-vibecoding I2B posture. The best
 parts to keep are not the old branding, but the discipline:
 
 - intent-first review instead of code-first guessing
