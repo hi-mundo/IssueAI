@@ -16,7 +16,8 @@ class IssueAIImportsTest(unittest.TestCase):
     def test_model_contains_benchmark_summary(self) -> None:
         model = IssueAIModel()
         self.assertEqual(model.name, "IssueAI")
-        self.assertEqual(model.benchmark_summary["top100_recall"], "20/20")
+        self.assertEqual(model.benchmark_summary["top20_success"], "20/20")
+        self.assertEqual(model.benchmark_summary["top100_diagnostic"], "20/20")
 
     def test_adapters_expose_host_descriptions(self) -> None:
         self.assertEqual(CodexAdapter.describe()["host"], "codex")

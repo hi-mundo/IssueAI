@@ -27,10 +27,24 @@
 IssueAI helps AI coding agents find real bugs that usually survive normal code
 review, generic static analysis, and shallow “review this repo” prompts.
 
+## Default installed capabilities
+
+The installed plugin surface is intentionally small:
+
+- `Repository Recon`: snapshot, structural map, role map, flow trace, and graph
+- `Repository Intent Review`: implementation-vs-intent review using the Recon artifacts
+- `Issue Hunt`: deeper late-stage hunt once the obvious findings are handled
+- `Issue Probe`: deterministic evidence checks for shortlisted issues
+
+Benchmark, replay, mutation, and dataset tooling stay outside the default
+installed surface.
+
 ## What is this?
 
-IssueAI is a plugin for AI coding agents that exposes the Issue Hunt workflow to help them find real bugs in a
-repository instead of stopping at superficial code review comments.
+IssueAI is a plugin for AI coding agents that uses Repository Recon first,
+Repository Intent Review second, Issue Hunt third, and Issue Probe last to help
+them find real bugs in a repository instead of stopping at superficial code
+review comments.
 
 It is built for the class of defects that usually escape obvious checks:
 
@@ -42,10 +56,9 @@ It is built for the class of defects that usually escape obvious checks:
 In plain terms: IssueAI tries to make Codex or Claude review code more like an
 investigator and less like a linter.
 
-It first tries to understand what the product is, how the repository is
-organized, what the code seems intended to do, and which bug families are more
-likely in that context. Then it generates bug hypotheses that can later be
-tested or validated.
+It first maps the repository structurally, then reviews what the repository is
+supposed to guarantee, then hunts the harder mature-system issues that remain,
+and finally probes the shortlisted candidates with deterministic checks.
 
 It is not a generic static analyzer and not a plain “review this repo” prompt.
 
@@ -142,14 +155,22 @@ IssueAI tries to reduce that gap by:
 As of **July 27, 2026**:
 
 - official validated benchmark set: 20 real issue cases from mature public repositories
-- primary metric: all expected real mechanisms inside the top 100 ranked hypotheses
+- primary metric: all expected real mechanisms inside the top 20 ranked hypotheses
 - validated result: **20/20 cases passed**
 
 Expanded internal benchmark snapshot on the same date:
 
-- combined benchmark set: **40/40** cases passed `top100_all`
+- combined benchmark set: **40/40** cases passed `top20_all`
 - composition: 20 validated cases + 20 `proposed-from-artifacts` cases
-- progress telemetry: 38/40 cases had all expected mechanisms inside the top 10, and 40/40 inside the top 20
+- progress telemetry: 39/40 cases had all expected mechanisms inside the top 10
+- diagnostic envelope: 40/40 cases still landed inside the top 100
+
+External comparison snapshot on **Tuesday, July 28, 2026**:
+
+- same 40-case set, compared against a Codex-only strong prompt with no plugin
+- IssueAI: **40/40** cases inside the top 20
+- Codex-only baseline: **24/40** cases inside the top 20
+- that gap is strongest on the harder second 20-case batch
 
 That is a strong viability signal, not a claim that the product is already
 finished.
@@ -164,24 +185,14 @@ finished.
 - [evals/README.md](./evals/README.md): benchmark runtime details
 - [benchmarks/README.md](./benchmarks/README.md): dated benchmark result summaries
 
-## Documentation
-
-- [USAGE.md](./USAGE.md): installation and usage
-- [IMPLEMENTATION.md](./IMPLEMENTATION.md): implementation and repository structure
-- [PAPER.md](./PAPER.md): method and benchmark framing
-- [TODO.md](./TODO.md): roadmap and open work
-- [evals/README.md](./evals/README.md): benchmark runtime details
-- [benchmarks/README.md](./benchmarks/README.md): dated benchmark result summaries
-
 ## Installed vs internal surfaces
 
 Installed by default:
 
-- Issue Hunt workflow
-- intended behavior modeling
-- issue hypothesis generation
-- issue hypothesis validation
-- reference-graph construction
+- Repository Recon
+- Repository Intent Review
+- Issue Hunt
+- Issue Probe
 
 Internal or eval-only:
 

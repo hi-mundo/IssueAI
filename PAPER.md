@@ -149,12 +149,24 @@ Current validated result in this workspace on **July 27, 2026**:
 
 - benchmark set: 20 historical real-issue cases from mature public repositories
 - evaluation target: whether all expected real mechanisms for each case appear
-  inside the top 100 ranked hypotheses
+  inside the top 20 ranked hypotheses
 - result: **20/20 cases passed**
 - stronger observation: in the measured run, the expected mechanisms also
   landed inside the top 10 for all 20 cases
+- diagnostic fallback: if a future case misses top 20, `top100_all` is used
+  only to tell whether it was still retrieved at all
 
 This supports a strong recall claim, not a claim of perfect ranking purity.
+
+Follow-up comparison in this workspace on **Tuesday, July 28, 2026**:
+
+- same 40-case historical set
+- IssueAI: **40/40** top-20 success
+- Codex-only strong-prompt baseline: **24/40** top-20 success
+
+That comparison does not reuse the exact same internal ranking harness, but it
+is strong product-level evidence that IssueAI adds retrieval value beyond a
+good host-native prompt alone.
 
 ## Interpretation of current result
 
@@ -163,7 +175,7 @@ The current result is excellent for recovery coverage of real issue hypotheses.
 More precisely:
 
 - excellent recall
-- excellent top-100 coverage
+- excellent top-20 benchmark success
 - strong evidence that the real issue is not being dropped
 - ranking quality still needs refinement
 
@@ -218,13 +230,19 @@ Current phase:
 
 - add more independent historical batches
 - preserve blind evaluation and structural comparability
+- record host-native strong-prompt baselines when they can be run cleanly
+
+Completed comparison:
+
+- Codex-only strong-prompt baseline on the same 40-case historical set
 
 Later phase:
 
-- compare IssueAI against strong-prompt baseline runs from other agent hosts
+- extend that baseline comparison to other hosts such as Claude, Cursor, and
+  Copilot
 
-That comparison matters, but it is intentionally deferred until the product is
-more optimized as a usable/installable marketplace tool.
+The broader cross-host comparison still matters, but only the Codex baseline is
+completed in this workspace today.
 
 ## Conclusion
 

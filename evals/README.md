@@ -31,20 +31,49 @@ marked as proposed-from-artifacts rather than manually gold-validated.
 
 Two benchmark views are important and should not be mixed:
 
-- primary success metric: `top100_all`
-- progress telemetry: position distribution such as top-10 or top-20
+- primary success metric: `top20_all`
+- diagnostic fallback: `top100_all` only tells us whether a miss fell just outside top 20 or disappeared entirely
+- progress telemetry: position distribution such as top-10
 
 Observed results:
 
-- validated batch `historical-route-20-v1`: **20/20** cases passed `top100_all`
-- expanded run `historical-route-20-v1` + `historical-route-20-v2`: **40/40** cases passed `top100_all`
-- expanded distribution: 38/40 cases had all expected mechanisms inside the top 10, and 40/40 inside the top 20
+- validated batch `historical-route-20-v1`: **20/20** cases passed `top20_all`
+- expanded run `historical-route-20-v1` + `historical-route-20-v2`: **40/40** cases passed `top20_all`
+- expanded distribution: 39/40 cases had all expected mechanisms inside the top 10
+- diagnostic envelope: both benchmark views still kept **40/40** cases inside `top100_all`
 
 Important nuance:
 
 - `historical-route-20-v2` is useful as an additive benchmark batch
 - it is still labeled `proposed-from-artifacts`
 - it should not be described as manually gold-validated until that review is finished
+
+## Observed external baseline on July 28, 2026
+
+We also ran the same 40-case set against a Codex-only strong prompt baseline.
+
+Observed comparison:
+
+- IssueAI: **40/40** cases passed `top20_all`
+- Codex-only baseline: **24/40** cases passed `top20_all`
+- Codex-only baseline top-10 view: **20/40**
+
+Method summary for the baseline:
+
+- `codex exec`
+- read-only mode
+- plugins disabled
+- remote plugin disabled
+- hooks disabled
+- prompt constrained to the current working tree only
+- no `git log`, `git show`, `git diff`, blame, or remote/network information
+
+Important caveat:
+
+- this is a product-level comparison, not a byte-identical replay of the
+  internal IssueAI ranking harness
+- the baseline produced up to 20 ranked hypotheses which were then scored by
+  the first occurrence of each expected mechanism
 
 ## Runtimes
 
@@ -81,17 +110,16 @@ Those are intentionally external so the benchmark remains blind from the runtime
 
 ## Current sequencing decision
 
-The next benchmark expansion step is:
+Completed:
+
+- compare IssueAI against a Codex-only strong-prompt baseline on the same
+  40-case set
+
+Next benchmark expansion steps:
 
 - add more historical real-issue batches
-
-The following step is intentionally deferred:
-
-- compare IssueAI against strong-prompt baseline runs from other agent hosts
-  such as Codex, Claude, Cursor, or Copilot
-
-That comparison matters, but it should happen only after IssueAI is better
-optimized as a usable/installable marketplace tool.
+- extend the strong-prompt baseline comparison to other hosts such as Claude,
+  Cursor, or Copilot when their local runtime/auth setup is ready
 
 ## Promptfoo usage
 

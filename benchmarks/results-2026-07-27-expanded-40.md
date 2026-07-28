@@ -6,18 +6,18 @@
 - Composition:
   - 20 validated cases from `historical-route-20-v1`
   - 20 additive cases from `historical-route-20-v2`
-- Evaluation question: are all expected real mechanisms present inside the top 100 ranked hypotheses?
+- Evaluation question: are all expected real mechanisms present inside the top 20 ranked hypotheses?
 
 ## Primary result
 
-- Observed result: **40/40 cases passed** `top100_all`
+- Observed result: **40/40 cases passed** `top20_all`
 
 ## Position telemetry
 
 Case-level distribution:
 
 - all expected mechanisms inside top 5: 4/40 cases
-- all expected mechanisms inside top 10: 38/40 cases
+- all expected mechanisms inside top 10: 39/40 cases
 - all expected mechanisms inside top 20: 40/40 cases
 
 Mechanism-level distribution across 120 expected mechanisms:
@@ -27,6 +27,12 @@ Mechanism-level distribution across 120 expected mechanisms:
 - top 5: 68/120
 - top 10: 118/120
 - top 20: 120/120
+
+## Diagnostic fallback
+
+- `top100_all` remained **40/40**
+- this metric is now read only as “missed top 20, but still retrieved” versus
+  “disappeared from the shortlist entirely”
 
 ## Important interpretation
 

@@ -55,6 +55,7 @@ def main() -> int:
         "repository": result["repository"],
         "expected": result["expected"],
         "positions": result["positions"],
+        "top20_all": result["top20_all"],
         "top100_all": result["top100_all"],
         "top10": result["topk"],
     }

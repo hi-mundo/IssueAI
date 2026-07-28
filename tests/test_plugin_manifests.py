@@ -20,13 +20,27 @@ class IssueAIPluginManifestTests(unittest.TestCase):
         self.assertEqual(codex["name"], "issueai")
         self.assertEqual(codex["name"], claude["name"])
         self.assertEqual(codex["name"], cursor["name"])
-        self.assertEqual(codex["interface"]["displayName"], "Issue Hunt")
+        self.assertEqual(codex["interface"]["displayName"], "IssueAI")
         self.assertEqual(codex["interface"]["logo"], "./assets/plugin-logo.svg")
         self.assertEqual(codex["skills"], "./skills/")
 
     def test_logo_asset_exists(self) -> None:
         self.assertTrue((ROOT / "assets" / "logo.png").exists())
         self.assertTrue((ROOT / "assets" / "plugin-logo.svg").exists())
+
+    def test_installed_skills_have_ui_metadata(self) -> None:
+        expected = {
+            "repository-recon": ("display_name: \"Repository Recon\"", "allow_implicit_invocation: true"),
+            "repository-intent-review": ("display_name: \"Repository Intent Review\"", "allow_implicit_invocation: true"),
+            "issue-hunt": ("display_name: \"Issue Hunt\"", "allow_implicit_invocation: true"),
+            "issue-probe": ("display_name: \"Issue Probe\"", "allow_implicit_invocation: false"),
+        }
+        for skill, markers in expected.items():
+            path = ROOT / "skills" / skill / "agents" / "openai.yaml"
+            self.assertTrue(path.exists(), path.as_posix())
+            content = path.read_text()
+            for marker in markers:
+                self.assertIn(marker, content)
 
 
 if __name__ == "__main__":

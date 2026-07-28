@@ -8,7 +8,15 @@ import sys
 from pathlib import Path
 
 from issueai.benchmark import load_json, run_historical_case_benchmark
-from issueai.core import IssueAIRequest, run_pipeline
+from issueai.core import (
+    IssueAIRequest,
+    preflight_repository,
+    run_issue_hunt,
+    run_issue_probe,
+    run_pipeline,
+    run_repository_intent_review,
+    run_repository_recon,
+)
 
 
 def build_pipeline_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
@@ -46,6 +54,84 @@ def build_historical_case_parser(subparsers: argparse._SubParsersAction[argparse
     parser.set_defaults(command="historical-case")
 
 
+def add_review_mode_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--mode",
+        default="auto",
+        choices=("auto", "pending-changes", "commit-or-diff", "scoped", "repository", "deep"),
+        help="Review mode. Defaults to auto-selection.",
+    )
+    parser.add_argument("--scope", default="", help="Optional scoped path or feature label.")
+    parser.add_argument("--diff-target", default="", help="Optional commit or diff target label.")
+
+
+def build_repository_recon_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "repository-recon",
+        help="Run Repository Recon: snapshot, map structure, trace flow, and build the repository graph.",
+    )
+    parser.add_argument("--repo", type=Path, required=True, help="Local repository path.")
+    parser.add_argument("--purpose", default="", help="Optional purpose hint.")
+    parser.add_argument("--signal", action="append", default=[], help="Language/runtime signals to preserve in Recon.")
+    add_review_mode_arguments(parser)
+    parser.set_defaults(command="repository-recon")
+
+
+def build_preflight_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "preflight",
+        help="Compatibility alias: create or refresh the .issueai baseline for a local repository.",
+    )
+    parser.add_argument("--repo", type=Path, required=True, help="Local repository path.")
+    parser.set_defaults(command="preflight")
+
+
+def build_repository_intent_review_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "repository-intent-review",
+        help="Run Repository Intent Review: validate implementation intent after Repository Recon.",
+    )
+    parser.add_argument("--repo", type=Path, required=True, help="Local repository path.")
+    parser.add_argument("--purpose", default="", help="Optional purpose hint.")
+    parser.add_argument("--signal", action="append", default=[], help="Language/runtime review hints. Repeatable.")
+    add_review_mode_arguments(parser)
+    parser.set_defaults(command="repository-intent-review")
+
+
+def build_intent_review_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "intent-review",
+        help="Compatibility alias for Repository Intent Review.",
+    )
+    parser.add_argument("--repo", type=Path, required=True, help="Local repository path.")
+    parser.add_argument("--purpose", default="", help="Optional purpose hint.")
+    parser.add_argument("--signal", action="append", default=[], help="Language/runtime review hints. Repeatable.")
+    add_review_mode_arguments(parser)
+    parser.set_defaults(command="intent-review")
+
+
+def build_issue_hunt_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "issue-hunt",
+        help="Run Issue Hunt after Recon and Repository Intent Review are clean enough.",
+    )
+    parser.add_argument("--repo", type=Path, required=True, help="Local repository path.")
+    parser.add_argument("--purpose", default="", help="Optional purpose hint.")
+    parser.add_argument("--signal", action="append", default=[], help="Extra hunt signals. Repeatable.")
+    parser.add_argument("--limit", type=int, default=12, help="Maximum number of ranked hypotheses to return.")
+    parser.set_defaults(command="issue-hunt")
+
+
+def build_issue_probe_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "issue-probe",
+        help="Run Issue Probe on the latest shortlisted findings or hypotheses.",
+    )
+    parser.add_argument("--repo", type=Path, required=True, help="Local repository path.")
+    parser.add_argument("--limit", type=int, default=6, help="Maximum number of candidates to probe.")
+    parser.set_defaults(command="issue-probe")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="issueai",
@@ -54,6 +140,12 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command")
     build_pipeline_parser(subparsers)
     build_historical_case_parser(subparsers)
+    build_repository_recon_parser(subparsers)
+    build_preflight_parser(subparsers)
+    build_repository_intent_review_parser(subparsers)
+    build_intent_review_parser(subparsers)
+    build_issue_hunt_parser(subparsers)
+    build_issue_probe_parser(subparsers)
     return parser
 
 
@@ -61,7 +153,18 @@ def normalize_argv(argv: list[str] | None) -> list[str]:
     values = list(sys.argv[1:] if argv is None else argv)
     if not values:
         return ["pipeline"]
-    if values[0] not in {"pipeline", "historical-case", "-h", "--help"}:
+    if values[0] not in {
+        "pipeline",
+        "historical-case",
+        "repository-recon",
+        "preflight",
+        "repository-intent-review",
+        "intent-review",
+        "issue-hunt",
+        "issue-probe",
+        "-h",
+        "--help",
+    }:
         return ["pipeline", *values]
     return values
 
@@ -106,6 +209,7 @@ def run_historical_case_command(args: argparse.Namespace) -> int:
                 "repository": result["repository"],
                 "expected": result["expected"],
                 "positions": result["positions"],
+                "top20_all": result["top20_all"],
                 "top100_all": result["top100_all"],
                 "top10": result["topk"],
             },
@@ -115,10 +219,75 @@ def run_historical_case_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_preflight_command(args: argparse.Namespace) -> int:
+    print(json.dumps(preflight_repository(args.repo), indent=2, ensure_ascii=False))
+    return 0
+
+
+def run_repository_recon_command(args: argparse.Namespace) -> int:
+    payload = run_repository_recon(
+        args.repo,
+        repository_label=args.repo.name,
+        purpose_hint=args.purpose,
+        local_signals=tuple(args.signal),
+        explicit_mode=args.mode,
+        scope=args.scope,
+        diff_target=args.diff_target,
+    )
+    print(json.dumps(payload, indent=2, ensure_ascii=False))
+    return 0
+
+
+def run_repository_intent_review_command(args: argparse.Namespace) -> int:
+    payload = run_repository_intent_review(
+        args.repo,
+        repository_label=args.repo.name,
+        purpose_hint=args.purpose,
+        local_signals=tuple(args.signal),
+        explicit_mode=args.mode,
+        scope=args.scope,
+        diff_target=args.diff_target,
+    )
+    print(json.dumps(payload, indent=2, ensure_ascii=False))
+    return 0
+
+
+def run_issue_hunt_command(args: argparse.Namespace) -> int:
+    payload = run_issue_hunt(
+        args.repo,
+        repository_label=args.repo.name,
+        purpose_hint=args.purpose,
+        local_signals=tuple(args.signal),
+        hypothesis_limit=args.limit,
+    )
+    print(json.dumps(payload, indent=2, ensure_ascii=False))
+    return 0
+
+
+def run_issue_probe_command(args: argparse.Namespace) -> int:
+    payload = run_issue_probe(
+        args.repo,
+        repository_label=args.repo.name,
+        limit=args.limit,
+    )
+    print(json.dumps(payload, indent=2, ensure_ascii=False))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(normalize_argv(argv))
     if args.command == "historical-case":
         return run_historical_case_command(args)
+    if args.command == "repository-recon":
+        return run_repository_recon_command(args)
+    if args.command == "preflight":
+        return run_preflight_command(args)
+    if args.command in {"repository-intent-review", "intent-review"}:
+        return run_repository_intent_review_command(args)
+    if args.command == "issue-hunt":
+        return run_issue_hunt_command(args)
+    if args.command == "issue-probe":
+        return run_issue_probe_command(args)
     return run_pipeline_command(args)
 
 

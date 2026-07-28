@@ -1,0 +1,8 @@
+interface:
+  display_name: "Repository Recon"
+  short_description: "Map structure, entrypoints, flow, and graph first"
+  brand_color: "#ff5a3d"
+  default_prompt: "Use $repository-recon to create the .issueai snapshot, map this repository, and show me where the main flow, roles, redundancies, and graph seams are."
+
+policy:
+  allow_implicit_invocation: true

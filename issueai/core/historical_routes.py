@@ -251,6 +251,7 @@ def evaluate_historical_case(
         "mode": mode,
         "scopes": scopes,
     }
+    result["top20_all"] = all(position is not None and position <= 20 for position in result["positions"].values())
     result["top100_all"] = all(position is not None and position <= 100 for position in result["positions"].values())
     result["topk"] = ordered[:top_k]
     return result

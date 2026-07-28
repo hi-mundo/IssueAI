@@ -18,9 +18,9 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Issue Hunt",
-    "shortDescription": "Find real issues through contextual bug hypotheses",
-    "longDescription": "IssueAI powers Issue Hunt: understand the repository and intended behavior first, generate contextual issue hypotheses, validate them with evidence, and keep benchmark and eval surfaces separate from default end-user workflows.",
+    "displayName": "IssueAI",
+    "shortDescription": "Recon first, intent review second, issue hunt after that",
+    "longDescription": "IssueAI starts with Repository Recon to map the repository, trace flow, and build the graph. Then Repository Intent Review checks whether implementation matches repository intent. Issue Hunt focuses on the harder contextual issues that remain, and Issue Probe turns shortlisted issues into deterministic evidence checks.",
     "developerName": "Raimundo",
     "category": "Developer Tools",
     "capabilities": [
@@ -28,9 +28,9 @@
       "Execute"
     ],
     "defaultPrompt": [
-      "Run Issue Hunt on this repository.",
-      "Find likely real issues in this project.",
-      "Model intended behavior and validate contextual issue hypotheses for this codebase."
+      "Run Repository Recon on this repository.",
+      "Then run Repository Intent Review and show me the obvious break paths first.",
+      "If that is clean enough, run Issue Hunt and Issue Probe next."
     ],
     "brandColor": "#ff5a3d",
     "composerIcon": "./assets/plugin-logo.svg",

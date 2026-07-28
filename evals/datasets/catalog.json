@@ -1,6 +1,6 @@
 {
   "phase": "historical-issue-recovery",
-  "comparison_phase": "deferred-until-tooling-is-optimized",
+  "comparison_phase": "codex-baseline-recorded-other-hosts-still-deferred",
   "datasets": [
     {
       "id": "historical-route-20-v1",
@@ -11,8 +11,8 @@
       "validated_on": "2026-07-27",
       "notes": [
         "Current official benchmark set",
-        "Used to validate top-100 recall claims",
-        "External AI-vs-IssueAI comparisons are intentionally deferred"
+        "Used to validate top-20 benchmark success, with top-100 kept as diagnostic fallback only",
+        "Codex-only strong-prompt comparison is now recorded; other host baselines remain deferred"
       ]
     },
     {

@@ -1,0 +1,8 @@
+interface:
+  display_name: "Issue Probe"
+  short_description: "Probe suspected issues with deterministic evidence checks"
+  brand_color: "#ff5a3d"
+  default_prompt: "Use $issue-probe to test the latest Issue Hunt shortlist and tell me which suspected issues already have strong static evidence."
+
+policy:
+  allow_implicit_invocation: false

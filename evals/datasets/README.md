@@ -50,6 +50,7 @@ batches, not by changing the benchmark philosophy.
 
 As of July 27, 2026:
 
-- `historical-route-20-v1` remains the official validated batch with 20/20 top-100 recovery
-- `historical-route-20-v1` + `historical-route-20-v2` together reached 40/40 top-100 recovery in the current internal run
+- `historical-route-20-v1` remains the official validated batch with 20/20 top-20 success
+- `historical-route-20-v1` + `historical-route-20-v2` together reached 40/40 top-20 success in the current internal run
+- top-100 remained a diagnostic envelope in both runs
 - the second statement is useful benchmark evidence, but not a replacement for manual gold validation of `historical-route-20-v2`

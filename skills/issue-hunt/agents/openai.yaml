@@ -1,0 +1,8 @@
+interface:
+  display_name: "Issue Hunt"
+  short_description: "Hunt subtle issues after the obvious ones are handled"
+  brand_color: "#ff5a3d"
+  default_prompt: "Use $issue-hunt after Repository Recon and Repository Intent Review are clean enough to hunt for the harder contextual issues."
+
+policy:
+  allow_implicit_invocation: true

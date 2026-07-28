@@ -1,0 +1,8 @@
+interface:
+  display_name: "Repository Intent Review"
+  short_description: "Check whether implementation matches repository intent"
+  brand_color: "#ff5a3d"
+  default_prompt: "Use $repository-intent-review to compare the Repository Recon snapshot against implementation intent and show me the obvious break paths first."
+
+policy:
+  allow_implicit_invocation: true

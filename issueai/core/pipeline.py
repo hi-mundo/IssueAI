@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+from pathlib import Path
 
 from .contracts import IssueAIRequest, PlanningResult, RepositoryUnderstanding, RetrievalResult
+from .repository_intent_review import load_issue_hunt_gate
+from .repository_recon import preflight_repository
 
 
 def build_understanding(request: IssueAIRequest) -> RepositoryUnderstanding:
@@ -65,9 +68,14 @@ def run_pipeline(request: IssueAIRequest) -> dict[str, object]:
     understanding = build_understanding(request)
     retrieval = retrieve_patterns(request, understanding)
     plan = build_plan(request, retrieval)
-    return {
+    payload = {
         "request": asdict(request),
         "understanding": asdict(understanding),
         "retrieval": asdict(retrieval),
         "plan": asdict(plan),
     }
+    repo_path = Path(request.repository)
+    if repo_path.exists():
+        payload["preflight"] = preflight_repository(repo_path)
+        payload["issue_hunt_gate"] = load_issue_hunt_gate(repo_path)
+    return payload

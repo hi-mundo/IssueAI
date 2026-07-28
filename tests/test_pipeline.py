@@ -63,3 +63,4 @@ class IssueAIPipelineTest(unittest.TestCase):
         self.assertEqual(normalize_argv(["--repository", "example/repo"]), ["pipeline", "--repository", "example/repo"])
         self.assertEqual(normalize_argv(["pipeline", "--repository", "example/repo"]), ["pipeline", "--repository", "example/repo"])
         self.assertEqual(normalize_argv(["historical-case", "--case-id", "cp-1"]), ["historical-case", "--case-id", "cp-1"])
+        self.assertEqual(normalize_argv(["repository-recon", "--repo", "/tmp/example"]), ["repository-recon", "--repo", "/tmp/example"])
