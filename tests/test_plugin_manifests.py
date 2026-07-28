@@ -21,12 +21,12 @@ class IssueAIPluginManifestTests(unittest.TestCase):
         self.assertEqual(codex["name"], claude["name"])
         self.assertEqual(codex["name"], cursor["name"])
         self.assertEqual(codex["interface"]["displayName"], "IssueAI")
-        self.assertEqual(codex["interface"]["logo"], "./assets/plugin-logo.svg")
+        self.assertEqual(codex["interface"]["logo"], "./assets/plugin-logo.png")
         self.assertEqual(codex["skills"], "./skills/")
 
     def test_logo_asset_exists(self) -> None:
         self.assertTrue((ROOT / "assets" / "logo.png").exists())
-        self.assertTrue((ROOT / "assets" / "plugin-logo.svg").exists())
+        self.assertTrue((ROOT / "assets" / "plugin-logo.png").exists())
 
     def test_installed_skills_have_ui_metadata(self) -> None:
         expected = {

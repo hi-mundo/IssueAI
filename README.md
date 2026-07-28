@@ -1,7 +1,5 @@
 <p align="center">
-  <span style="display:inline-block; padding:16px; background:#ffffff; border-radius:20px;">
-    <img src="./assets/logo.png" alt="IssueAI logo" width="160" />
-  </span>
+  <img src="./assets/logo.png" alt="IssueAI logo" width="160" />
 </p>
 
 <h1 align="center">IssueAI</h1>

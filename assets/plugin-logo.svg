@@ -1,32 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
-  <title id="title">Issue Hunt</title>
-  <desc id="desc">A magnifying glass inspecting an issue card</desc>
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#102A43"/>
-      <stop offset="1" stop-color="#1F3B64"/>
-    </linearGradient>
-    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#FFF7E6"/>
-      <stop offset="1" stop-color="#F7E1B5"/>
-    </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#F6C453"/>
-      <stop offset="1" stop-color="#F08A5D"/>
-    </linearGradient>
-    <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#DFF4FF" stop-opacity=".95"/>
-      <stop offset="1" stop-color="#A9D7F5" stop-opacity=".92"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
-  <path d="M37 28h34l17 17v39c0 7-5 12-12 12H37c-7 0-12-5-12-12V40c0-7 5-12 12-12Z" fill="url(#paper)"/>
-  <path d="M71 28v13c0 6 4 10 10 10h13" fill="#F9D89A"/>
-  <path d="M47 53h20M47 64h18M47 75h12" stroke="#B68D45" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="76" cy="69" r="12" fill="url(#accent)"/>
-  <path d="M76 63v8m0 7h.01" stroke="#102A43" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="47" cy="83" r="19" fill="url(#lens)" stroke="#F4F8FB" stroke-width="7"/>
-  <path d="M60 96 83 117" stroke="#F6C453" stroke-width="11" stroke-linecap="round"/>
-  <path d="M40 83h14M47 76v14" stroke="#2A4365" stroke-width="4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1300" role="img" aria-labelledby="title desc">
+  <title id="title">IssueAI</title>
+  <desc id="desc">Scared but cute ladybug mascot on a transparent background.</desc>
+  <image href="./plugin-logo.png" width="1300" height="1300" preserveAspectRatio="xMidYMid meet"/>
 </svg>

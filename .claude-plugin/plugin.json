@@ -33,7 +33,7 @@
       "If that is clean enough, run Issue Hunt and Issue Probe next."
     ],
     "brandColor": "#ff5a3d",
-    "composerIcon": "./assets/plugin-logo.svg",
-    "logo": "./assets/plugin-logo.svg"
+    "composerIcon": "./assets/plugin-logo.png",
+    "logo": "./assets/plugin-logo.png"
   }
 }
