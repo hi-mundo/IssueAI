@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="./assets/logo.png" alt="IssueAI logo" width="160" />
+  <img src="./assets/logo.png" alt="AIssuer logo" width="160" />
 </p>
 
-<h1 align="center">IssueAI</h1>
+<h1 align="center">AIssuer</h1>
 
 <p align="center">
-  Hypothesis-driven bug and issue discovery for real codebases.
+  Finds an issue before production does.
 </p>
 
 <p align="center">

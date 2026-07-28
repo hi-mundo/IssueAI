@@ -20,7 +20,7 @@ class IssueAIPluginManifestTests(unittest.TestCase):
         self.assertEqual(codex["name"], "issueai")
         self.assertEqual(codex["name"], claude["name"])
         self.assertEqual(codex["name"], cursor["name"])
-        self.assertEqual(codex["interface"]["displayName"], "IssueAI")
+        self.assertEqual(codex["interface"]["displayName"], "AIssuer")
         self.assertEqual(codex["interface"]["logo"], "./assets/plugin-logo.png")
         self.assertEqual(codex["skills"], "./skills/")
 

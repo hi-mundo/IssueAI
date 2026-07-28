@@ -1,7 +1,7 @@
 {
   "name": "issueai",
   "version": "0.1.0",
-  "description": "Hypothesis-driven issue and bug discovery for real codebases.",
+  "description": "Finds an issue before production does.",
   "author": {
     "name": "Raimundo",
     "url": "https://github.com/hi-mundo"
@@ -18,9 +18,9 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "IssueAI",
-    "shortDescription": "Recon first, intent review second, issue hunt after that",
-    "longDescription": "IssueAI starts with Repository Recon to map the repository, trace flow, and build the graph. Then Repository Intent Review checks whether implementation matches repository intent. Issue Hunt focuses on the harder contextual issues that remain, and Issue Probe turns shortlisted issues into deterministic evidence checks.",
+    "displayName": "AIssuer",
+    "shortDescription": "Finds an issue before production does.",
+    "longDescription": "AIssuer starts with Repository Recon to map the repository, trace flow, and build the graph. Then Repository Intent Review checks whether implementation matches repository intent. Issue Hunt focuses on the harder contextual issues that remain, and Issue Probe turns shortlisted issues into deterministic evidence checks.",
     "developerName": "Raimundo",
     "category": "Developer Tools",
     "capabilities": [
