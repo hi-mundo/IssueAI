@@ -1,6 +1,18 @@
 """Core IssueAI concepts."""
 
-from .contracts import IssueAIRequest, PlanningResult, RepositoryUnderstanding, RetrievalResult
+from .contracts import (
+    HistoricalBenchmarkPayloadContract,
+    HistoricalCaseResultContract,
+    IssueAIRequest,
+    JsonObjectContract,
+    NormalizedRepositoryContract,
+    NormalizedSourceFileContract,
+    PlanningResult,
+    RepositoryMapContract,
+    RepositoryReviewArtifactContract,
+    RepositoryUnderstanding,
+    RetrievalResult,
+)
 from .historical_eval import (
     HistoricalEvalRuntime,
     build_contextual_input,
@@ -37,6 +49,13 @@ from .workflows import build_phase_envelope, build_workflow_envelopes, workflow_
 __all__ = [
     "IssueAIModel",
     "IssueAIRequest",
+    "JsonObjectContract",
+    "HistoricalBenchmarkPayloadContract",
+    "HistoricalCaseResultContract",
+    "NormalizedRepositoryContract",
+    "NormalizedSourceFileContract",
+    "RepositoryMapContract",
+    "RepositoryReviewArtifactContract",
     "RepositoryUnderstanding",
     "RetrievalResult",
     "PlanningResult",

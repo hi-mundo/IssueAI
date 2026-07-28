@@ -8,6 +8,7 @@ from typing import Any
 
 from .issue_hunt import load_issue_hunt
 from .repository_recon import ISSUEAI_DIRNAME, load_issueai_state, read_text_safe, state_path, write_json
+from .repository_recon_profile import utc_now
 from .workflows import build_workflow_envelopes
 
 
@@ -102,7 +103,9 @@ def run_issue_probe(repo_root: Path, *, repository_label: str, limit: int = 6) -
     )
 
     issueai_root = repo_root / ISSUEAI_DIRNAME
+    captured_at = utc_now()
     probe_payload = {
+        "capturedAt": captured_at,
         "repository": repository_label,
         "selectedCandidates": selected,
         "verdicts": verdicts,
@@ -112,7 +115,7 @@ def run_issue_probe(repo_root: Path, *, repository_label: str, limit: int = 6) -
 
     state = load_issueai_state(repo_root)
     state["issueProbe"] = {
-        "updatedAt": state.get("issueHunt", {}).get("updatedAt"),
+        "updatedAt": captured_at,
         "resultsPath": f"{ISSUEAI_DIRNAME}/findings/issue-probe-results.json",
         "selectedCount": len(selected),
     }

@@ -359,7 +359,19 @@ def main() -> int:
 
     root = Path(args.repo)
     plan = json.loads(Path(args.plan).read_text())
-    ids = set(plan["shards"][args.shard])
+    shards = plan.get("shards")
+    if not isinstance(shards, list):
+        print(json.dumps({"ok": False, "error": "PLAN_SHARDS_INVALID"}, sort_keys=True))
+        return 2
+    if args.shard < 0 or args.shard >= len(shards):
+        print(json.dumps({"ok": False, "error": "SHARD_OUT_OF_RANGE", "shard": args.shard, "available": len(shards)}, sort_keys=True))
+        return 1
+    shard = shards[args.shard]
+    if not isinstance(shard, list):
+        print(json.dumps({"ok": False, "error": "PLAN_SHARD_INVALID", "shard": args.shard}, sort_keys=True))
+        return 2
+
+    ids = set(shard)
     files = {entry["id"]: entry for entry in plan["inventory"]}
     coverage_rows = defaultdict(list)
     for row in plan.get("coverage_rows", []):

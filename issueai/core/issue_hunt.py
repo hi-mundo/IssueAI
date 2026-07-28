@@ -10,6 +10,7 @@ from .contracts import IssueAIRequest
 from .pipeline import build_plan, build_understanding, retrieve_patterns
 from .repository_intent_review import load_issue_hunt_gate, load_repository_intent_review
 from .repository_recon import ISSUEAI_DIRNAME, load_issueai_state, load_repository_recon, state_path, write_json
+from .repository_recon_profile import utc_now
 from .workflows import build_workflow_envelopes
 
 
@@ -118,8 +119,9 @@ def run_issue_hunt(
     )
 
     issueai_root = repo_root / ISSUEAI_DIRNAME
+    captured_at = utc_now()
     hunt_payload = {
-        "capturedAt": recon.get("capturedAt", review.get("capturedAt")),
+        "capturedAt": captured_at,
         "repository": repository_label,
         "searchSpace": search_space,
         "retrievedPatterns": list(retrieval.matched_patterns),

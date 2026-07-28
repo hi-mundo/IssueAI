@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
 
 from .bug_hunt_runtime import runtime_root as default_runtime_root
-from .core import HistoricalEvalRuntime, evaluate_historical_case
+from .core import HistoricalCaseResultContract, HistoricalEvalRuntime, JsonObjectContract, evaluate_historical_case
 
 
-def load_json(path: Path) -> dict:
+def load_json(path: Path) -> JsonObjectContract:
     return json.loads(path.read_text())
 
 
@@ -24,7 +24,7 @@ def run_historical_case_benchmark(
     output_dir: Path,
     repository: str,
     expected_route: list[str],
-    infer_product_understanding: Callable[[str, Path, dict, dict], dict],
+    infer_product_understanding: Callable[[str, Path, JsonObjectContract, JsonObjectContract], dict[str, Any]],
     runtime_root: Path | None = None,
     contextual_limit: int = 100,
     scoring_contextual_limit: int = 100,
@@ -33,7 +33,7 @@ def run_historical_case_benchmark(
     scoring_playbook_base: float = 80.0,
     use_materialization: bool = False,
     top_k: int = 10,
-) -> dict[str, object]:
+) -> HistoricalCaseResultContract:
     repo_root = repo_root.resolve()
     repos_root = repos_root.resolve()
     artifacts_root = artifacts_root.resolve()

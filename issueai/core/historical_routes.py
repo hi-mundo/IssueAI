@@ -6,7 +6,9 @@ import json
 import math
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
+
+from .contracts import HistoricalCaseResultContract, NormalizedRepositoryContract, RepositoryMapContract
 
 from .historical_eval import (
     HistoricalEvalRuntime,
@@ -57,7 +59,7 @@ def canonicalize(name: str) -> str:
     return CANONICAL.get(name, name)
 
 
-def choose_scopes(normalized: dict) -> tuple[str, list[str], int]:
+def choose_scopes(normalized: NormalizedRepositoryContract) -> tuple[str, list[str], int]:
     files = [
         entry
         for entry in normalized.get("files", [])
@@ -176,7 +178,7 @@ def evaluate_historical_case(
     normalized_path: Path,
     repository_map_path: Path,
     normalized: dict,
-    repository_map: dict,
+    repository_map: RepositoryMapContract,
     artifact_dir: Path,
     runtime: HistoricalEvalRuntime,
     infer_product_understanding: Callable[[str, Path, dict, dict], dict],
@@ -187,7 +189,7 @@ def evaluate_historical_case(
     scoring_playbook_base: float,
     use_materialization: bool,
     top_k: int,
-) -> dict[str, object]:
+) -> HistoricalCaseResultContract:
     artifact_dir.mkdir(parents=True, exist_ok=True)
     product = infer_product_understanding(repository, repo_dir, normalized, repository_map)
     product_path = artifact_dir / "product-understanding.json"
@@ -240,7 +242,7 @@ def evaluate_historical_case(
     ranked = sorted(scores.items(), key=lambda item: (-item[1], item[0]))
     ordered = [name for name, _ in ranked]
     expected = [canonicalize(value) for value in expected_route]
-    result: dict[str, object] = {
+    result: HistoricalCaseResultContract = {
         "id": case_id,
         "repository": repository,
         "expected": expected,
